@@ -87,7 +87,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => \Filament\Http\Livewire\Auth\Login::class,
+            'login' => \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -246,7 +246,7 @@ return [
         'sidebar' => [
             'is_collapsible_on_desktop' => false,
             'groups' => [
-                'are_collapsible' => true,
+                'are_collapsible' => false,
             ],
             'width' => null,
             'collapsed_width' => null,

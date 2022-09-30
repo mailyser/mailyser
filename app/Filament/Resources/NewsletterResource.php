@@ -3,21 +3,21 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\NewsletterResource\Pages;
-use App\Filament\Resources\NewsletterResource\RelationManagers;
 use App\Models\Newsletter;
-use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class NewsletterResource extends Resource
 {
     protected static ?string $model = Newsletter::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static bool $shouldRegisterNavigation = false;
+
+    // protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    // protected static ?string $navigationGroup = 'Newsletters';
 
     public static function form(Form $form): Form
     {
@@ -43,14 +43,14 @@ class NewsletterResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -58,5 +58,5 @@ class NewsletterResource extends Resource
             'create' => Pages\CreateNewsletter::route('/create'),
             'edit' => Pages\EditNewsletter::route('/{record}/edit'),
         ];
-    }    
+    }
 }

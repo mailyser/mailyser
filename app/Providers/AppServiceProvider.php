@@ -25,12 +25,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Filament::serving(function () {
-            Filament::registerNavigationGroups([
-                NavigationGroup::make()
-                    ->label('Newsletter')
-                    ->icon('heroicon-s-shopping-cart'),
-            ]);
-        });
+//        Filament::serving(function () {
+//            Filament::registerNavigationGroups([
+//                NavigationGroup::make()
+//                    ->label('Newsletter')
+//                    ->icon('heroicon-s-shopping-cart'),
+//                NavigationGroup::make()
+//                    ->label('Blog')
+//                    ->icon('heroicon-s-pencil'),
+//                NavigationGroup::make()
+//                    ->label('Settings')
+//                    ->icon('heroicon-s-cog')
+//                    ->collapsed(),
+//            ]);
+//        });
     }
 }
