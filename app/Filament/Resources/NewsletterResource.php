@@ -11,13 +11,13 @@ use Filament\Tables;
 
 class NewsletterResource extends Resource
 {
+    //    protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $model = Newsletter::class;
 
-    protected static bool $shouldRegisterNavigation = false;
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
 
-    // protected static ?string $navigationIcon = 'heroicon-o-collection';
-
-    // protected static ?string $navigationGroup = 'Newsletters';
+    protected static ?string $navigationGroup = 'Newsletters';
 
     public static function form(Form $form): Form
     {
