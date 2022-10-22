@@ -49,4 +49,9 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     {
         return true;
     }
+
+    public function hasAccess(): bool
+    {
+        return $this->subscribed();
+    }
 }

@@ -16,7 +16,7 @@ class Subscription extends Page
 
     protected static function getNavigationBadge(): ?string
     {
-        if (auth()->user()->subscribed()) {
+        if (auth()->user()->hasAccess()) {
             return null;
         }
 

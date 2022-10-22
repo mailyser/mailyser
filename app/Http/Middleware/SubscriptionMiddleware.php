@@ -22,7 +22,7 @@ class SubscriptionMiddleware
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if (! $request->user()?->subscribed() && ! $request->routeIs($this->excludedRoutes)) {
+        if (! $request->user()?->hasAccess() && ! $request->routeIs($this->excludedRoutes)) {
             return redirect()->route('filament.pages.subscription');
         }
 
