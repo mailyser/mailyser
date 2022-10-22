@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\NewsletterResource\Pages;
+use App\Http\Middleware\SubscriptionMiddleware;
 use App\Models\Newsletter;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -11,13 +12,15 @@ use Filament\Tables;
 
 class NewsletterResource extends Resource
 {
-    //    protected static bool $shouldRegisterNavigation = false;
-
     protected static ?string $model = Newsletter::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
     protected static ?string $navigationGroup = 'Newsletters';
+
+    protected static string|array $middlewares = [
+        SubscriptionMiddleware::class,
+    ];
 
     public static function form(Form $form): Form
     {

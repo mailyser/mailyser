@@ -6,6 +6,7 @@ use Filament\Facades\Filament;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Cashier::calculateTaxes();
+
         Filament::serving(function () {
             Filament::registerTheme(
                 app(Vite::class)('resources/css/app.css'),
@@ -38,17 +41,12 @@ class AppServiceProvider extends ServiceProvider
                     ->icon('heroicon-o-user')
                     ->group('Account')
                     ->sort(1),
-                NavigationItem::make('Subscription')
-                    ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
-                    ->icon('heroicon-o-credit-card')
-                    ->group('Account')
-                    ->sort(2),
 
                 NavigationItem::make('Support & Feedback')
                     ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
                     ->icon('heroicon-o-support')
                     ->group('Support')
-                    ->sort(1),
+                    ->sort(3),
             ]);
         });
     }
