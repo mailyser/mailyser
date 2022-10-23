@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Newsletter extends Model
+class Imap extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function user(): BelongsTo
+    public function email(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Email::class);
     }
 }

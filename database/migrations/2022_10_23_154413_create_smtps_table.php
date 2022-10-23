@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('newsletters', function (Blueprint $table) {
+        Schema::create('smtps', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->string('email');
-            $table->string('keyword', 50);
+            $table->foreignId('email_id')->constrained()->cascadeOnDelete();
+            $table->string('host');
+            $table->unsignedInteger('port');
+            $table->string('protocol');
+            $table->string('username');
+            $table->text('password');
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('newsletters');
+        Schema::dropIfExists('smtps');
     }
 };
