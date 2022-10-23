@@ -10,6 +10,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 
 class NewsletterResource extends Resource
 {
@@ -22,6 +23,11 @@ class NewsletterResource extends Resource
     protected static string|array $middlewares = [
         SubscriptionMiddleware::class,
     ];
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
+    }
 
     public static function form(Form $form): Form
     {
@@ -57,7 +63,8 @@ class NewsletterResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
+                // Custom action go to page or View
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -76,7 +83,7 @@ class NewsletterResource extends Resource
         return [
             'index' => Pages\ListNewsletters::route('/'),
             'create' => Pages\CreateNewsletter::route('/create'),
-            'edit' => Pages\EditNewsletter::route('/{record}/edit'),
+            'view' => Pages\ViewNewsletter::route('/{record}'),
         ];
     }
 }
