@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\NewsletterStatusEnum;
 use App\Filament\Resources\NewsletterResource\Pages;
 use App\Http\Middleware\SubscriptionMiddleware;
 use App\Models\Newsletter;
@@ -10,7 +11,9 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\NewsletterResource\Pages\ManageNewsletter as ManageNewsletter;
 
 class NewsletterResource extends Resource
 {
@@ -28,6 +31,11 @@ class NewsletterResource extends Resource
     {
         return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
     }
+
+//    protected function getRedirectUrl(Model $record): string
+//    {
+//        return $this->getResource()::generateUrl('index');
+//    }
 
     public static function form(Form $form): Form
     {
@@ -57,18 +65,26 @@ class NewsletterResource extends Resource
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('keyword'),
-                Tables\Columns\TextColumn::make('status'),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->enum(NewsletterStatusEnum::cases())
+                    ->colors(NewsletterStatusEnum::badgeColors())
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                // Custom action go to page or View
+                Action::make('edit')
+                    ->label('View')
+                    ->color('secondary')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn (Newsletter $record) => route('filament.resources.newsletters.manage', $record)),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc')
+            ->poll();
     }
 
     public static function getRelations(): array
@@ -83,7 +99,7 @@ class NewsletterResource extends Resource
         return [
             'index' => Pages\ListNewsletters::route('/'),
             'create' => Pages\CreateNewsletter::route('/create'),
-            'view' => Pages\ViewNewsletter::route('/{record}'),
+            'manage' => ManageNewsletter::route('/{record}/manage'),
         ];
     }
 }

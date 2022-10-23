@@ -91,4 +91,9 @@ class NewsletterPolicy
     {
         return false;
     }
+
+    public function manage(User $user, Newsletter $newsletter)
+    {
+        return $user->id === $newsletter->user_id;
+    }
 }
