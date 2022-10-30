@@ -7,7 +7,6 @@ use App\Filament\Resources\NewsletterResource;
 use App\Models\Email;
 use App\Models\Newsletter;
 use Exception;
-use Filament\Notifications\Notification;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\Page;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -39,7 +38,8 @@ class ManageNewsletter extends Page
             Action::make('Audience')
                 ->color('secondary')
                 ->icon('heroicon-o-download')
-                ->action('downloadContacts'),
+                ->action('downloadContacts')
+                ->visible(fn (): bool => NewsletterStatusEnum::canDownloadContacts($this->record->status)),
         ];
     }
 
@@ -50,7 +50,7 @@ class ManageNewsletter extends Page
     {
         $this->authorize('manage', $this->record);
 
-        $this->canBeScanned = $this->record->status === NewsletterStatusEnum::Prepared->name;
+        $this->canBeScanned = $this->record->status === NewsletterStatusEnum::Sent->name;
     }
 
     public function getBreadcrumb(): ?string
@@ -85,8 +85,7 @@ class ManageNewsletter extends Page
         $csv->insertAll($audience);
 
         if ($this->record->status === NewsletterStatusEnum::Draft->name) {
-            $this->record->setStatus(NewsletterStatusEnum::Prepared->name);
-            $this->canBeScanned = true;
+            $this->record->setStatus(NewsletterStatusEnum::Waiting->name);
         }
 
 //        Notification::make()
@@ -99,5 +98,25 @@ class ManageNewsletter extends Page
         return response()->streamDownload(function () use ($csv) {
             $csv->output('audience.csv');
         }, 'audience.csv');
+    }
+
+    /**
+     * @throws InvalidStatus
+     */
+    public function campaignSent()
+    {
+        $this->record->setStatus(NewsletterStatusEnum::Sent->name);
+    }
+
+    /**
+     * @throws InvalidStatus
+     */
+    public function startScan()
+    {
+        // start scan
+        $this->record->setStatus(NewsletterStatusEnum::Scanning->name);
+
+        // go to live results view
+
     }
 }

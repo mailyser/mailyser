@@ -32,11 +32,6 @@ class NewsletterResource extends Resource
         return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
     }
 
-//    protected function getRedirectUrl(Model $record): string
-//    {
-//        return $this->getResource()::generateUrl('index');
-//    }
-
     public static function form(Form $form): Form
     {
         return $form
@@ -67,7 +62,21 @@ class NewsletterResource extends Resource
                 Tables\Columns\TextColumn::make('keyword'),
                 Tables\Columns\BadgeColumn::make('status')
                     ->enum(NewsletterStatusEnum::cases())
-                    ->colors(NewsletterStatusEnum::badgeColors())
+                    ->colors([
+                        'primary' => static fn ($state): bool => in_array($state, [
+                            NewsletterStatusEnum::Sent->name,
+                            NewsletterStatusEnum::Scanning->name,
+                        ]),
+                        'secondary' => static fn ($state): bool => in_array($state, [
+                            NewsletterStatusEnum::Draft->name,
+                        ]),
+                        'warning' => static fn ($state): bool => in_array($state, [
+                            NewsletterStatusEnum::Waiting->name
+                        ]),
+                        'success' => static fn ($state): bool => in_array($state, [
+                            NewsletterStatusEnum::Finished->name
+                        ]),
+                    ])
                     ->sortable(),
             ])
             ->filters([
