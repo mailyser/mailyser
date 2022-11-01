@@ -13,13 +13,12 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\NewsletterResource\Pages\ManageNewsletter as ManageNewsletter;
 
 class NewsletterResource extends Resource
 {
     protected static ?string $model = Newsletter::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-mail';
 
     protected static ?string $navigationGroup = 'Newsletters';
 
@@ -65,13 +64,13 @@ class NewsletterResource extends Resource
                     ->colors([
                         'primary' => static fn ($state): bool => in_array($state, [
                             NewsletterStatusEnum::Sent->name,
-                            NewsletterStatusEnum::Scanning->name,
                         ]),
                         'secondary' => static fn ($state): bool => in_array($state, [
                             NewsletterStatusEnum::Draft->name,
                         ]),
                         'warning' => static fn ($state): bool => in_array($state, [
-                            NewsletterStatusEnum::Waiting->name
+                            NewsletterStatusEnum::Waiting->name,
+                            NewsletterStatusEnum::Scanning->name,
                         ]),
                         'success' => static fn ($state): bool => in_array($state, [
                             NewsletterStatusEnum::Finished->name
@@ -83,11 +82,11 @@ class NewsletterResource extends Resource
                 //
             ])
             ->actions([
-                Action::make('edit')
+                Action::make('view')
                     ->label('View')
                     ->color('secondary')
                     ->icon('heroicon-o-eye')
-                    ->url(fn (Newsletter $record) => route('filament.resources.newsletters.manage', $record)),
+                    ->url(fn (Newsletter $record) => route('filament.resources.newsletters.view', $record)),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -108,7 +107,7 @@ class NewsletterResource extends Resource
         return [
             'index' => Pages\ListNewsletters::route('/'),
             'create' => Pages\CreateNewsletter::route('/create'),
-            'manage' => ManageNewsletter::route('/{record}/manage'),
+            'view' => Pages\ViewNewsletter::route('/{record}'),
         ];
     }
 }
