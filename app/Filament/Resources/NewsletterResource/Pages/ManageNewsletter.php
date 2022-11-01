@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\NewsletterResource\Pages;
 
+use App\Actions\GenerateNewsletterAudienceAction;
 use App\Enums\NewsletterStatusEnum;
 use App\Filament\Resources\NewsletterResource;
 use App\Models\Email;
 use App\Models\Newsletter;
+use Carbon\Carbon;
 use Exception;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\Page;
@@ -72,23 +74,9 @@ class ManageNewsletter extends Page
     {
         $this->authorize('manage', $this->record);
 
-        $columns = [
-            'first_name',
-            'last_name',
-            'email',
-        ];
-
-        // if first time, assign contacts. save in a pivot table.
-        $audience = Email::query()
-            ->select($columns)
-            ->inRandomOrder()
-            ->limit(1000)
-            ->get()
-            ->toArray();
-
         $csv = Writer::createFromFileObject(new SplTempFileObject);
-        $csv->insertOne($columns);
-        $csv->insertAll($audience);
+        $csv->insertOne(Newsletter::audienceFields());
+        $csv->insertAll($this->record->getOrGenerateAudience());
 
         if ($this->record->status === NewsletterStatusEnum::Draft->name) {
             $this->record->setStatus(NewsletterStatusEnum::Waiting->name);
@@ -118,8 +106,10 @@ class ManageNewsletter extends Page
     {
         $this->authorize('manage', $this->record);
 
-        // start scan
-        // set scan time 5 minutes from now
+        $this->record->update([
+            'scheduled_for' => Carbon::now()->addMinutes(5),
+        ]);
+
         $this->record->setStatus(NewsletterStatusEnum::Scanning->name);
     }
 }
