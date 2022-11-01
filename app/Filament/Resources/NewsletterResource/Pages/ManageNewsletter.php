@@ -77,8 +77,14 @@ class ManageNewsletter extends Page
             'last_name',
             'email',
         ];
+
         // if first time, assign contacts. save in a pivot table.
-        $audience = Email::query()->select($columns)->get()->toArray();
+        $audience = Email::query()
+            ->select($columns)
+            ->inRandomOrder()
+            ->limit(1000)
+            ->get()
+            ->toArray();
 
         $csv = Writer::createFromFileObject(new SplTempFileObject);
         $csv->insertOne($columns);
@@ -88,13 +94,6 @@ class ManageNewsletter extends Page
             $this->record->setStatus(NewsletterStatusEnum::Waiting->name);
         }
 
-//        Notification::make()
-//            ->title('Downloading contacts')
-//            ->success()
-//            ->send();
-
-        // add a flag
-
         return response()->streamDownload(function () use ($csv) {
             $csv->output('audience.csv');
         }, 'audience.csv');
@@ -102,21 +101,25 @@ class ManageNewsletter extends Page
 
     /**
      * @throws InvalidStatus
+     * @throws AuthorizationException
      */
     public function campaignSent()
     {
+        $this->authorize('manage', $this->record);
+
         $this->record->setStatus(NewsletterStatusEnum::Sent->name);
     }
 
     /**
      * @throws InvalidStatus
+     * @throws AuthorizationException
      */
     public function startScan()
     {
+        $this->authorize('manage', $this->record);
+
         // start scan
+        // set scan time 5 minutes from now
         $this->record->setStatus(NewsletterStatusEnum::Scanning->name);
-
-        // go to live results view
-
     }
 }
