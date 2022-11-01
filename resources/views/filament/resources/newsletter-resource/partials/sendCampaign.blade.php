@@ -1,5 +1,5 @@
 <x-filament::card.heading>
-    <span class="mr-2 inline-flex items-center justify-center h-8 w-8 bg-primary-600 rounded-full">
+    <span class="mr-2 inline-flex items-center justify-center h-8 w-8 bg-primary-600 text-white rounded-full">
         2
     </span>
     Send your campaign
