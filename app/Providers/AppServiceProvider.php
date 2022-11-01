@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
                     ->sort(1),
 
                 NavigationItem::make('Support & Feedback')
-                    ->url('https://filament.pirsch.io', shouldOpenInNewTab: true)
+                    ->url('mailto:support@mailyser.io', shouldOpenInNewTab: true)
                     ->icon('heroicon-o-support')
                     ->group('Support')
                     ->sort(3),
