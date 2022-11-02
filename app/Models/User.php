@@ -58,4 +58,10 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
         return $this->subscribed();
     }
+
+    /** @temp */
+    public function subscribed()
+    {
+        return true;
+    }
 }

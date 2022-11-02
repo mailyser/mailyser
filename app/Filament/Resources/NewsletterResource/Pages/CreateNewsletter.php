@@ -11,6 +11,6 @@ class CreateNewsletter extends CreateRecord
 
     protected function getRedirectUrl(): string
     {
-        return route('filament.resources.newsletters.manage', $this->record);
+        return route('filament.resources.newsletters.view', $this->record);
     }
 }

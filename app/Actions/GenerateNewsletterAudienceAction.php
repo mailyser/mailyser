@@ -14,7 +14,7 @@ class GenerateNewsletterAudienceAction
         $audience = Email::query()
             ->select(array_merge(Newsletter::audienceFields(), ['id']))
             ->inRandomOrder()
-            ->limit(1000)
+            ->limit(app()->environment('production') ? 1000 : 10)
             ->get();
 
         $newsletter->emails()->sync($audience);

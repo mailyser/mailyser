@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Arr;
 use Spatie\ModelStatus\HasStatuses;
 
 class Newsletter extends Model
@@ -15,6 +16,12 @@ class Newsletter extends Model
     use HasStatuses;
 
     protected $guarded = ['id'];
+
+    protected $casts = [
+        'scheduled_for' => 'datetime',
+        'scanning_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
 
     public function user(): BelongsTo
     {
@@ -43,7 +50,9 @@ class Newsletter extends Model
     public function getOrGenerateAudience(): array
     {
         return $this->emails->count()
-            ? $this->emails->toArray()
+            ? $this->emails()->select(self::audienceFields())->get()->transform(function ($email) {
+                return Arr::only($email->attributes, self::audienceFields());
+            })->toArray()
             : app(GenerateNewsletterAudienceAction::class)($this);
     }
 }

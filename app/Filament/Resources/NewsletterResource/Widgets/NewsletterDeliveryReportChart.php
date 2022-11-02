@@ -27,7 +27,7 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
 
         $this->record->emails->each(function ($email) use (&$data) {
             if ($email->pivot->status) {
-                $statusIndex = $email->pivot->status !== 'spam'
+                $statusIndex = $email->pivot->status !== 'skipped'
                     ? 0 : 1;
 
                 $data[$statusIndex]++;
@@ -39,8 +39,8 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
                 [
                     'data' => $data,
                     'backgroundColor' => [
-                        'green',
-                        'orange',
+                        '#10b981',
+                        '#eab308',
                     ]
                 ],
             ],

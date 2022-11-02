@@ -5,6 +5,7 @@ namespace App\Filament\Resources\NewsletterResource\Widgets;
 use App\Enums\NewsletterStatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Widgets\DoughnutChartWidget;
+use function PHPUnit\Framework\containsIdentical;
 
 class NewsletterSpamReportChart extends DoughnutChartWidget
 {
@@ -26,9 +27,9 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
         $data = [0, 0];
 
         $this->record->emails->each(function ($email) use (&$data) {
-            if ($email->pivot->status) {
-                $statusIndex = $email->pivot->status !== 'spam'
-                    ? 0 : 1;
+            if (filled($email->pivot->status) && $email->pivot->status !== 'skipped') {
+                $statusIndex = $email->pivot->found_at_mailbox === 'spam'
+                    ? 1 : 0;
 
                 $data[$statusIndex]++;
             }
@@ -39,8 +40,8 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
                 [
                     'data' => $data,
                     'backgroundColor' => [
-                        'green',
-                        'orange',
+                        '#10b981',
+                        '#eab308',
                     ]
                 ],
             ],

@@ -6,6 +6,7 @@ use App\Enums\NewsletterStatusEnum;
 use App\Filament\Resources\NewsletterResource\Pages;
 use App\Http\Middleware\SubscriptionMiddleware;
 use App\Models\Newsletter;
+use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -35,20 +36,23 @@ class NewsletterResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->label('Internal Name')
-                    ->placeholder('My Campaign Test')
-                    ->required(),
-                TextInput::make('email')
-                    ->label('Sender Address')
-                    ->placeholder('example@newsletter.com')
-                    ->email()
-                    ->required(),
-                TextInput::make('keyword')
-                    ->placeholder('Thanks for reading our october 2022 newsletter!')
-                    ->helperText('Use a word or sentence present in your email template. We use this text, together with the sender address to identify the email in the mailbox. ')
-                    ->required()
-                    ->columnSpan(2),
+                Card::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->label('Internal Name')
+                            ->placeholder('My Campaign Test')
+                            ->required(),
+                        TextInput::make('email')
+                            ->label('Sender Address')
+                            ->placeholder('example@newsletter.com')
+                            ->email()
+                            ->required(),
+                        TextInput::make('keyword')
+                            ->placeholder('Thanks for reading our october 2022 newsletter!')
+                            ->helperText('Use a word or sentence present in your email template. We use this text, together with the sender address to identify the email in the mailbox. ')
+                            ->required()
+                            ->columnSpan(2),
+                    ]),
             ]);
     }
 
