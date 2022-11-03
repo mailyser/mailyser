@@ -7,6 +7,7 @@ use App\Filament\Resources\NewsletterResource\Pages;
 use App\Http\Middleware\SubscriptionMiddleware;
 use App\Models\Newsletter;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -27,6 +28,11 @@ class NewsletterResource extends Resource
         SubscriptionMiddleware::class,
     ];
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return filled(auth()->user()->sending_address);
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->whereBelongsTo(auth()->user());
@@ -38,20 +44,26 @@ class NewsletterResource extends Resource
             ->schema([
                 Card::make()
                     ->schema([
-                        TextInput::make('name')
-                            ->label('Internal Name')
-                            ->placeholder('My Campaign Test')
-                            ->required(),
-                        TextInput::make('email')
-                            ->label('Sender Address')
-                            ->placeholder('example@newsletter.com')
-                            ->email()
-                            ->required(),
-                        TextInput::make('keyword')
-                            ->placeholder('Thanks for reading our october 2022 newsletter!')
-                            ->helperText('Use a word or sentence present in your email template. We use this text, together with the sender address to identify the email in the mailbox. ')
-                            ->required()
-                            ->columnSpan(2),
+                        Grid::make()
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Internal Name')
+                                    ->placeholder('My Campaign Test')
+                                    ->required()
+                                    ->columnSpan(1),
+                                TextInput::make('email')
+                                    ->label('Sending Address')
+                                    ->default(fn () => auth()->user()->sending_address)
+                                    ->email()
+                                    ->disabled()
+                                    ->columnSpan(1),
+                                TextInput::make('keyword')
+                                    ->placeholder('Thanks for reading our october 2022 newsletter!')
+                                    ->helperText('Use a word or sentence present in your email template. We use this text, together with the sender address to identify the email in the mailbox. ')
+                                    ->required()
+                                    ->columnSpan(2),
+                            ])
+
                     ]),
             ]);
     }
