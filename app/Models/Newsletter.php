@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Actions\GenerateNewsletterAudienceAction;
+use App\Enums\NewsletterStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -54,5 +55,10 @@ class Newsletter extends Model
                 return Arr::only($email->attributes, self::audienceFields());
             })->toArray()
             : app(GenerateNewsletterAudienceAction::class)($this);
+    }
+
+    public function finishedScanning(): bool
+    {
+        return $this->status === NewsletterStatusEnum::Finished->name;
     }
 }

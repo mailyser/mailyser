@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Actions\CompleteNewsletterAction;
-use App\Actions\ScanNewsletterAction;
 use App\Models\Newsletter;
 use Illuminate\Console\Command;
+use Spatie\ModelStatus\Exceptions\InvalidStatus;
 
 class CompleteScannedNewslettersCommand extends Command
 {
@@ -27,6 +27,7 @@ class CompleteScannedNewslettersCommand extends Command
      * Execute the console command.
      *
      * @return int
+     * @throws InvalidStatus
      */
     public function handle()
     {
