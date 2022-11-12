@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Enums\NewsletterStatusEnum;
 use App\Jobs\ScanEmailAccountJob;
 use App\Models\Email;
 use App\Models\Newsletter;

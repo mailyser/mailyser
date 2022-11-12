@@ -25,6 +25,12 @@ class Email extends Model
 
     public function newsletters(): BelongsToMany
     {
-        return $this->belongsToMany(Newsletter::class);
+        return $this
+            ->belongsToMany(Newsletter::class)
+            ->withPivot([
+                'status',
+                'found_at_mailbox',
+                'error',
+            ]);
     }
 }

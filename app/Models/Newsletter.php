@@ -41,6 +41,7 @@ class Newsletter extends Model
             ->withPivot([
                 'status',
                 'found_at_mailbox',
+                'error',
             ]);
     }
 

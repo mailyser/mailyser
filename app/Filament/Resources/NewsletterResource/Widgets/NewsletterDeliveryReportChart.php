@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NewsletterDeliveryReportChart extends DoughnutChartWidget
 {
-    protected static ?string $heading = 'Delivery Report';
+    protected static ?string $heading = 'Mailbox Distribution';
 
     public ?Model $record = null;
 
@@ -21,33 +21,68 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
         return '15s';
     }
 
+    /**
+     * What mailboxes emails landed in.
+     */
     protected function getData(): array
     {
-        $data = [0, 0];
+        $data = [];
 
         $this->record->emails->each(function ($email) use (&$data) {
-            if ($email->pivot->status) {
-                $statusIndex = $email->pivot->status !== 'skipped'
-                    ? 0 : 1;
+            if ($email->pivot->status === 'scanned') {
+                $landedIn = $email->pivot->found_at_mailbox;
 
-                $data[$statusIndex]++;
+                if (! isset($data[$landedIn])) {
+                    $data[$landedIn] = 0;
+                }
+
+                $data[$landedIn]++;
             }
         });
 
         return [
             'datasets' => [
                 [
-                    'data' => $data,
-                    'backgroundColor' => [
-                        '#10b981',
-                        '#eab308',
-                    ]
+                    'data' => array_values($data),
+                    'backgroundColor' => array_values(array_map(function () {
+                        return '#'
+                            . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT)
+                            . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT)
+                            . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+                    }, $data))
                 ],
             ],
-            'labels' => [
-                'Valid Sample',
-                'Invalid',
-            ],
+            'labels' => array_keys($data),
         ];
     }
+
+//    protected function getData(): array
+//    {
+//        $data = [0, 0];
+//
+//        $this->record->emails->each(function ($email) use (&$data) {
+//            if ($email->pivot->status) {
+//                $statusIndex = $email->pivot->status !== 'skipped'
+//                    ? 0 : 1;
+//
+//                $data[$statusIndex]++;
+//            }
+//        });
+//
+//        return [
+//            'datasets' => [
+//                [
+//                    'data' => $data,
+//                    'backgroundColor' => [
+//                        '#10b981',
+//                        '#eab308',
+//                    ]
+//                ],
+//            ],
+//            'labels' => [
+//                'Valid Sample',
+//                'Invalid',
+//            ],
+//        ];
+//    }
 }

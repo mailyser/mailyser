@@ -13,7 +13,7 @@
 
         <h3 class="mb-2"><strong>Important</strong></h3>
         <ul class="mb-8 list-disc list-inside">
-            <li>Send the campaign from this email address: <span class="underline underline-offset-4">{{ $record->email }}</span></li>
+            <li>Send the campaign from this email address: <span class="underline underline-offset-4">{{ $record->sender->email_address }}</span></li>
             <li>Don't forget to include the keyword in your copy: <span class="underline underline-offset-4">{{ $record->keyword }}</span></li>
         </ul>
 
