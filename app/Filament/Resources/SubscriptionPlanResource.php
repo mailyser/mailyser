@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Concerns\OnlyAdminConcern;
 use App\Filament\Resources\SubscriptionPlanResource\Pages;
 use App\Filament\Resources\SubscriptionPlanResource\RelationManagers;
 use App\Models\SubscriptionPlan;
@@ -14,6 +15,8 @@ use Filament\Forms\Components\TextInput\Mask;
 
 class SubscriptionPlanResource extends Resource
 {
+    use OnlyAdminConcern;
+
     protected static ?string $model = SubscriptionPlan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
