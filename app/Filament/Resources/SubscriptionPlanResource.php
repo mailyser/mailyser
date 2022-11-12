@@ -23,7 +23,9 @@ class SubscriptionPlanResource extends Resource
 
     protected static ?string $navigationGroup = 'Admin';
 
-    protected static ?int $navigationSort = 100;
+    protected static ?int $navigationSort = 101;
+
+    protected static bool $shouldRegisterNavigation = false;
 
     public static function form(Form $form): Form
     {
