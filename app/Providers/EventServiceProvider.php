@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Newsletter;
+use App\Models\Sender;
 use App\Observers\NewsletterObserver;
+use App\Observers\SenderObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Newsletter::observe(NewsletterObserver::class);
+        Sender::observe(SenderObserver::class);
     }
 
     /**

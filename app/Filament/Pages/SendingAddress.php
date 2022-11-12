@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Http\Middleware\SubscriptionMiddleware;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -15,11 +16,17 @@ class SendingAddress extends Page implements HasForms
 
     protected static string $view = 'filament.pages.sending-address';
 
-    protected static ?string $navigationIcon = 'heroicon-o-mail';
+    protected static ?string $navigationIcon = 'heroicon-o-at-symbol';
 
     protected static ?string $navigationGroup = 'Newsletters';
 
-    protected static ?string $navigationLabel = 'Newsletters';
+    protected static ?string $navigationLabel = 'Senders';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static string|array $middlewares = [
+        SubscriptionMiddleware::class,
+    ];
 
     protected ?string $heading = 'Define a sending address';
 
@@ -27,7 +34,7 @@ class SendingAddress extends Page implements HasForms
 
     protected static function shouldRegisterNavigation(): bool
     {
-        return ! filled(auth()->user()->sending_address);
+        return ! (bool) auth()->user()->senders->count();
     }
 
     protected function getFormSchema(): array
@@ -44,23 +51,20 @@ class SendingAddress extends Page implements HasForms
         ];
     }
 
-    public function updateSendingEmail()
+    public function createSender()
     {
-        $user = auth()->user();
-
-        abort_if(filled($user->sending_address), 403);
-
-        $user->update([
-            'sending_address' => $this->email,
+        auth()->user()->senders()->create([
+            'email_address' => $this->email,
+            'enabled' => true,
         ]);
 
         Notification::make()
-            ->title('Saved successfully')
+            ->title('Sender created')
             ->success()
             ->send();
 
         $this->redirect(
-            route('filament.resources.newsletters.index')
+            route('filament.resources.senders.index')
         );
     }
 }

@@ -29,6 +29,11 @@ class Newsletter extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function sender(): BelongsTo
+    {
+        return $this->belongsTo(Sender::class);
+    }
+
     public function emails(): BelongsToMany
     {
         return $this

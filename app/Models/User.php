@@ -5,6 +5,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use JeffGreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
@@ -46,6 +47,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return HasMany
+     */
+    public function senders(): HasMany
+    {
+        return $this->hasMany(Sender::class);
+    }
+
     public function canAccessFilament(): bool
     {
         return true;
@@ -58,5 +67,14 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         }
 
         return $this->subscribed();
+    }
+
+    public function hasAvailableSenders()
+    {
+        if (! $subscription = $this->subscription()) {
+            return false;
+        }
+
+        return $this->senders->count() < $subscription->quantity;
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Middleware\SubscriptionMiddleware;
 use App\Models\Newsletter;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -15,6 +16,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\HtmlString;
 
 class NewsletterResource extends Resource
 {
@@ -24,14 +26,11 @@ class NewsletterResource extends Resource
 
     protected static ?string $navigationGroup = 'Newsletters';
 
+    protected static ?int $navigationSort = 0;
+
     protected static string|array $middlewares = [
         SubscriptionMiddleware::class,
     ];
-
-    protected static function shouldRegisterNavigation(): bool
-    {
-        return filled(auth()->user()->sending_address);
-    }
 
     public static function getEloquentQuery(): Builder
     {
@@ -48,14 +47,17 @@ class NewsletterResource extends Resource
                             ->schema([
                                 TextInput::make('name')
                                     ->label('Internal Name')
+                                    ->helperText('A name to identify this newsletter campaign.')
                                     ->placeholder('My Campaign Test')
                                     ->required()
                                     ->columnSpan(1),
-                                TextInput::make('email')
-                                    ->label('Sending Address')
-                                    ->default(fn () => auth()->user()->sending_address)
-                                    ->email()
-                                    ->disabled()
+                                Select::make('sender_id')
+                                    ->placeholder('Select a sender')
+                                    ->hint(new HtmlString('<a href="'.route('filament.resources.senders.index').'">Create new sender</a>'))
+                                    ->hintIcon('heroicon-o-plus')
+                                    ->hintColor('primary')
+                                    ->helperText('The sender address is used to identify your newsletter emails.')
+                                    ->relationship('sender', 'email_address', fn ($query) => $query->where('user_id', auth()->id()))
                                     ->columnSpan(1),
                                 TextInput::make('keyword')
                                     ->placeholder('Thanks for reading our october 2022 newsletter!')
@@ -73,7 +75,7 @@ class NewsletterResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('sender.email_address'),
                 Tables\Columns\TextColumn::make('keyword'),
                 Tables\Columns\BadgeColumn::make('status')
                     ->enum(NewsletterStatusEnum::cases())

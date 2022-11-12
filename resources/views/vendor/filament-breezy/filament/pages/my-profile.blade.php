@@ -1,9 +1,5 @@
 <x-filament::page>
 
-    <livewire:sending-address-form />
-
-    <x-filament::hr />
-
     <x-filament-breezy::grid-section class="mt-8">
 
         <x-slot name="title">

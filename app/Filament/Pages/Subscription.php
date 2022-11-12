@@ -2,17 +2,15 @@
 
 namespace App\Filament\Pages;
 
-use App\Models\SubscriptionPlan;
 use App\Models\User;
-use Exception;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
-use Illuminate\Support\Str;
-use Laravel\Cashier\Checkout;
-use Stripe\Stripe;
-use Stripe\StripeClient;
 
-class Subscription extends Page
+class Subscription extends Page implements HasForms
 {
+    use InteractsWithForms;
+
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
 
     protected static string $view = 'filament.pages.subscription';
@@ -23,15 +21,18 @@ class Subscription extends Page
 
     public $user;
 
-    public array $plans;
-
     public function mount()
     {
-        $this->user = auth()->user();
-        $this->plans = SubscriptionPlan::query()
-            ->where('active', true)
-            ->get()
-            ->toArray();
+        if (session()->get('checkout_session')) {
+            $this->redirect(
+                route('filament.pages.checking-subscription')
+            );
+        }
+
+        /** @var User $user */
+        $user = auth()->user();
+
+        $this->user = $user;
     }
 
     protected static function getNavigationBadge(): ?string
@@ -46,32 +47,5 @@ class Subscription extends Page
     protected static function getNavigationBadgeColor(): ?string
     {
         return 'warning';
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function checkout(string $stripeId): Checkout
-    {
-//        $stripe = new StripeClient(config('cashier.secret'));
-
-        session()->put('checkout_session', $checkoutSessionId = Str::random());
-
-        return $this->user
-            ->newSubscription('default', $stripeId)
-            ->checkout([
-                'success_url' => route('filament.pages.checking-subscription'),
-                'cancel_url' => route('filament.pages.subscription'),
-                'client_reference_id' => $checkoutSessionId,
-            ]);
-    }
-
-    public function manageSubscription()
-    {
-        $billingPortalUrl = $this->user->billingPortalUrl(
-            route('filament.pages.subscription')
-        );
-
-        $this->redirect($billingPortalUrl);
     }
 }
