@@ -52,7 +52,7 @@ class SubscribeForm extends Component implements HasForms
      */
     public function checkout(string $stripeId): Checkout
     {
-        session()->put('checkout_session', $checkoutSessionId = Str::random());
+        $checkoutSessionId = Str::random();
 
         /** @var User $user */
         $user = $this->user;
@@ -64,7 +64,7 @@ class SubscribeForm extends Component implements HasForms
             ->trialDays(8)
             ->allowPromotionCodes()
             ->checkout([
-                'success_url' => route('filament.pages.checking-subscription'),
+                'success_url' => route('filament.pages.checking-subscription').'checkout_session='.$checkoutSessionId,
                 'cancel_url' => route('filament.pages.subscription'),
                 'client_reference_id' => $checkoutSessionId,
                 'line_items' => [[

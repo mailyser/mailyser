@@ -14,9 +14,7 @@ class CheckingSubscription extends Page
 
     public function mount()
     {
-        $checkoutSession = session()->get('checkout_session');
-
-        if (is_null($checkoutSession)) {
+        if (request()->missing('checkout_session')) {
             $this->redirect(
                 route('filament.pages.subscription')
             );

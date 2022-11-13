@@ -26,14 +26,6 @@ class Subscription extends Page implements HasForms
         /** @var User $user */
         $user = auth()->user();
         $this->user = $user;
-
-        $checkoutSession = session()->get('checkout_session');
-
-        if (! is_null($checkoutSession)) {
-            $this->redirect(
-                route('filament.pages.checking-subscription')
-            );
-        }
     }
 
     protected static function getNavigationBadge(): ?string
