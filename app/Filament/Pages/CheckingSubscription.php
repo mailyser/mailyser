@@ -14,7 +14,15 @@ class CheckingSubscription extends Page
 
     public function mount()
     {
-        abort_unless(session()->get('checkout_session'), 404);
+        $checkoutSession = session()->get('checkout_session');
+
+        if (is_null($checkoutSession)) {
+            $this->redirect(
+                route('filament.pages.subscription')
+            );
+        }
+
+//        abort_if(session()->get('checkout_session'), 404);
     }
 
     public function checkSubscriptionStatus()
