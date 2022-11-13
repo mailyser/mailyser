@@ -64,7 +64,7 @@ class SubscribeForm extends Component implements HasForms
             ->trialDays(8)
             ->allowPromotionCodes()
             ->checkout([
-                'success_url' => route('filament.pages.checking-subscription').'checkout_session='.$checkoutSessionId,
+                'success_url' => route('filament.pages.checking-subscription').'?checkout_session='.$checkoutSessionId,
                 'cancel_url' => route('filament.pages.subscription'),
                 'client_reference_id' => $checkoutSessionId,
                 'line_items' => [[
