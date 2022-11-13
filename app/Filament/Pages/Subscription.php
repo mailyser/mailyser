@@ -23,10 +23,13 @@ class Subscription extends Page implements HasForms
 
     public function mount()
     {
-        if (session()->get('checkout_session')) {
+        $checkoutSession = session()->get('checkout_session');
+
+        if (is_null($checkoutSession)) {
             $this->redirect(
                 route('filament.pages.checking-subscription')
             );
+            return;
         }
 
         /** @var User $user */

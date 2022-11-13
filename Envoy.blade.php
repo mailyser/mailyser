@@ -7,6 +7,6 @@ npm ci
 npm run build
 composer install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
 php artisan migrate --force --no-interaction
-php artisan optimize
+php artisan optimize:clear
 php artisan horizon:terminate
 @endtask
