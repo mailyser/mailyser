@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationItem;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Vite;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -49,5 +50,12 @@ class AppServiceProvider extends ServiceProvider
                     ->sort(3),
             ]);
         });
+
+        if ($this->app->environment('production')) {
+            Filament::registerRenderHook(
+                'head.end',
+                fn (): View => view('partials.headerVendor'),
+            );
+        }
     }
 }
