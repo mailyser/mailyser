@@ -6,7 +6,7 @@
         </h2>
 
         <p>
-            You need a subscription to use Mailyser. Try it for free, no card up-front required.
+            You need a subscription to use Mailyser. Try it 7 days for free.
         </p>
 
         <div>
