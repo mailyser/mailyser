@@ -16,7 +16,7 @@
     <div>
         <ul class="space-y-2">
             <li>
-                Sender: <u>{{ $record->sender->email_address }}</u>
+                Sender: <u>{{ $record->sender?->email_address ?? '(deleted sender)' }}</u>
             </li>
             <li>
                 Keyword: <u>{{ $record->keyword }}</u>
