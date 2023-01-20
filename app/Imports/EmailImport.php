@@ -15,18 +15,22 @@ class EmailImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
-        var_dump($rows);
+       // var_dump($rows);
         
         foreach ($rows as $row) {
             
-            var_dump($row);
-            die;
+           // var_dump($row);
+           // die;
             
             if ($row['status'] !== 'deliverable' || $row['user_id'] !== 0) {
+                var_dump('stop 1');
+                
                 continue;
             }
 
             if (Email::where('email', $row['email'])->exists()) {
+                var_dump('stop 2');
+                
                 continue;
             }
 
@@ -56,6 +60,7 @@ class EmailImport implements ToCollection, WithHeadingRow
                 'username' => $row['email'],
                 'password' => $row['app_password'],
             ]);
+            var_dump('created');
         }
     }
 }
