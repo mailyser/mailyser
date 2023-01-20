@@ -15,7 +15,13 @@ class EmailImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
+        var_dump($rows);
+        
         foreach ($rows as $row) {
+            
+            var_dump($row);
+            die;
+            
             if ($row['status'] !== 'deliverable' || $row['user_id'] !== 0) {
                 continue;
             }
