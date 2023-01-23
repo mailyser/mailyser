@@ -35,7 +35,7 @@ class CheckEmailConnection extends Command
         foreach($ids as $id) {
             $email = Email::find($id);
             
-            
+            var_dump($email->email);
             $connection = $email->imap->connection();
             
             try {
@@ -62,7 +62,7 @@ class CheckEmailConnection extends Command
                     }
                     */
                 }
-                var_dump($email->email);
+                
                 var_dump(implode(', ', $folderList));
             } catch (\Exception $e) {
                 var_dump($e->getMessage());
