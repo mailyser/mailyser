@@ -23,7 +23,7 @@ class EmailImport implements ToCollection, WithHeadingRow
            // die;
             
             if ($row['status'] !== 'deliverable') { // || $row['user_id'] !== 0) {
-                var_dump('stop 1');
+                var_dump('stop 1: '.$row['email']);
                 
                 continue;
             }
