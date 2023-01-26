@@ -53,7 +53,7 @@
 						<div aria-hidden="true"
 							class="filament-hr border-t dark:border-gray-700">
 							
-							<h1><?php 
+							<h1 style="font-size: 50px;"><?php 
 							echo ($newsletterScore->spam_score)
 							?></h1>
 							</div>
