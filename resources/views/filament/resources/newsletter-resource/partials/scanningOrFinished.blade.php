@@ -25,3 +25,14 @@
     </div>
 </x-filament::card>
 
+
+
+<x-filament::card>
+    <x-filament::card.heading>
+        Spam Score
+    </x-filament::card.heading>
+
+    <div>
+        Sample Data
+    </div>
+</x-filament::card>
