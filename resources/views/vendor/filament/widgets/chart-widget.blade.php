@@ -49,7 +49,7 @@
                         return this.chart = new Chart($el, {
                             type: '{{ $this->getType() }}',
                             data: this.applyColorToData(data),
-                            options: {{ json_encode($this->getOptions()) }} ?? { tooltips: {
+                            options:  {tooltips: {
       callbacks: {
         label: function(tooltipItem, data) {
            var dataset = data.datasets[tooltipItem.datasetIndex];
