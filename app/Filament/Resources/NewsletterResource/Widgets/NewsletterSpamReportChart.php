@@ -31,7 +31,11 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
                 $statusIndex = $email->pivot->found_at_mailbox === 'spam'
                     ? 1 : 0;
 
-                $data[$statusIndex]++;
+                $landedIn = $email->pivot->found_at_mailbox;
+                    
+                if($landedIn != 'Not found') {
+                    $data[$statusIndex]++;
+                }
             }
         });
 
