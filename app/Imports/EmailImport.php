@@ -40,9 +40,9 @@ class EmailImport implements ToCollection, WithHeadingRow
                 'reply_email' => $row['email'],
                 'first_name' => $row['first_name'],
                 'last_name' => $row['last_name'],
-                'inbox_folder' => $row['inbox_folder'],
-                'sent_folder' => $row['sent_folder'],
-                'spam_folder' => $row['spam_folder'],
+                'inbox_folder' => isset($row['inbox_folder']) ? $row['inbox_folder'] : 'INBOX',
+                'sent_folder' => isset($row['sent_folder']) ? $row['sent_folder'] : '[Gmail]/Sent Mail',
+                'spam_folder' => isset($row['spam_folder']) ? $row['spam_folder'] : '[Gmail]/Spam',
             ]);
 
             $email->smtp()->create([
