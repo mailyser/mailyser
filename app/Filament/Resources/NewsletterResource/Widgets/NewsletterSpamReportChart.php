@@ -11,6 +11,22 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
 {
     protected static ?string $heading = 'Spam Report';
 
+    protected static ?array $options = [
+        'tooltips' => [
+            'callbacks' => [
+                'label' => function(tooltipItem, data) {
+                var dataset = data.datasets[tooltipItem.datasetIndex];
+                var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    return previousValue + currentValue;
+                });
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var precentage = Math.floor(((currentValue/total) * 100)+0.5);
+                    return precentage + "%";
+                },
+            ],
+        ],
+    ];
+    
     public ?Model $record = null;
 
     protected function getPollingInterval(): ?string
@@ -21,6 +37,7 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
 
         return '15s';
     }
+     
 
     protected function getData(): array
     {
