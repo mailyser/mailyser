@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Webklex\PHPIMAP\Exceptions\ConnectionFailedException;
+use App\Models\NewsletterSpamScore;
 
 class ScanEmailAccountJob implements ShouldQueue
 {
@@ -48,6 +49,8 @@ class ScanEmailAccountJob implements ShouldQueue
             return;
         }
 
+        $hasNewsletterSpam = false;
+        
         /** @var \Webklex\PHPIMAP\Folder $folder */
         foreach ($connection->getFolders(false) as $folder) {
             $messages = $folder->query()
@@ -66,6 +69,20 @@ class ScanEmailAccountJob implements ShouldQueue
                     $folder = $message->getFolder();
                     $this->landedIn = $folder->name;
                 }
+                
+                $full_content = $message->header->raw.'
+'.$message->bodies['html'];
+                if($this->landedIn && !$hasNewsletterSpam) {
+                    $newsLetterSpamScore = NewsletterSpamScore::where("newsletter_id", $this->newsletter->id)->first();
+                    if(!$newsLetterSpamScore) {
+                        $newsLetterSpamScore = new NewsletterSpamScore();
+                        $newsLetterSpamScore->newsletter_id = $this->newsletter->id;
+                        $newsLetterSpamScore->full_content = $full_content;
+                        $newsLetterSpamScore->save();
+                        $hasNewsletterSpam = true;
+                    }
+                }
+                
             }
         }
 
