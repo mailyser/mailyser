@@ -40,6 +40,9 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
             }
         });
 
+        if(isset($data["Not found"]))
+            unset($data["Not found"]);
+        
         return [
             'datasets' => [
                 [
