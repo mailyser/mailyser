@@ -10,7 +10,7 @@ use function PHPUnit\Framework\containsIdentical;
 class NewsletterSpamReportChart extends DoughnutChartWidget
 {
     protected static ?string $heading = 'Spam Report';
-
+    /*
     protected static ?array $options = [
         'tooltips' => [
             'callbacks' => [
@@ -26,7 +26,7 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
             ],
         ],
     ];
-    
+    */
     public ?Model $record = null;
 
     protected function getPollingInterval(): ?string
