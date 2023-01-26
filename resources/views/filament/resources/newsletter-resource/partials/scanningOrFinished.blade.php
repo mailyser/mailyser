@@ -27,12 +27,74 @@
 
 
 
-<x-filament::card>
-    <x-filament::card.heading>
-        Spam Score
-    </x-filament::card.heading>
+     <?php 
+     $newsletterScore = $record->processSpamScore();
+     if($newsletterScore) {
+     ?>
 
-    <div>
-        Sample Data
-    </div>
-</x-filament::card>
+    <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6">
+
+
+		<div  
+			class="filament-widget col-span-1 filament-widgets-chart-widget">
+			<div
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+
+
+				<div class="space-y-2">
+					<div class="px-4 py-2 space-y-4">
+						<div class="flex items-center justify-between gap-8">
+							<h2
+								class="text-xl font-semibold tracking-tight filament-card-heading">
+								Spam Score</h2>
+
+						</div>
+
+						<div aria-hidden="true"
+							class="filament-hr border-t dark:border-gray-700">
+							
+							<h1><?php 
+							echo ($newsletterScore->spam_score)
+							?></h1>
+							</div>
+
+						<div></div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+	<div   class="filament-widget col-span-1 filament-widgets-chart-widget">
+			<div
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+
+
+				<div class="space-y-2">
+					<div class="px-4 py-2 space-y-4">
+						<div class="flex items-center justify-between gap-8">
+							<h2
+								class="text-xl font-semibold tracking-tight filament-card-heading">
+								Spam Report</h2>
+
+						</div>
+
+						<div aria-hidden="true"
+							class="filament-hr border-t dark:border-gray-700">
+							
+							<?php 
+							echo nl2br($newsletterScore->spam_report)
+							?>
+							</div>
+
+						<div></div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+  <?php }?>
