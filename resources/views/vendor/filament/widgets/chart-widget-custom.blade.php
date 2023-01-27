@@ -55,10 +55,17 @@
                                     tooltip: {
                                         callbacks: {
                                             label: function(context) {
-                                                let label = context.dataset.label || '';
-                                                console.log(context);
-                                             
-                                               return 'daniel 12';
+                                                var data = context.dataset.data,
+                                                  label = context.label,
+                                                  currentValue = context.raw,
+                                                  total = 0;
+                                    
+                                              for( var i = 0; i < data.length; i++ ){
+                                                total += data[i];
+                                              }
+                                              var percentage = parseFloat((currentValue/total*100).toFixed(1));
+                                    
+                                              return label + ' : ' +currentValue + ' (' + percentage + '%)';
                                             }
                                         }
                                     }
