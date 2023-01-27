@@ -46,17 +46,8 @@
                     initChart: function (data = null) {
                         data = data ?? {{ json_encode($this->getCachedData()) }}
 
-
-                        Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
-                            console.log('callbacks');
-                            var dataset = data.datasets[tooltipItem.datasetIndex];
-                           var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                             return previousValue + currentValue;
-                           });
-                           var currentValue = dataset.data[tooltipItem.index];
-                           var precentage = Math.floor(((currentValue/total) * 100)+0.5);
-                           return precentage + '%';
-                        }
+						setupDefaults();
+                       
 
                         return this.chart = new Chart($el, {
                             type: '{{ $this->getType() }}',
@@ -102,20 +93,17 @@
 </x-filament::widget>
 
 <script type="text/javascript">
-/*
- * Chart.defaults.plugins.tooltip.callbacks.label = function (context) { return context.label + ': ' + context.parsed + '%'; };
-Chart.defaults.plugins.tooltip.callbacks.title = context => 'abcdefgh';
- 
-Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
-    console.log('callbacks');
-    var dataset = data.datasets[tooltipItem.datasetIndex];
-   var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-     return previousValue + currentValue;
-   });
-   var currentValue = dataset.data[tooltipItem.index];
-   var precentage = Math.floor(((currentValue/total) * 100)+0.5);
-   return precentage + '%';
+function setupDefaults() {
+	console.log('setupDefaults');
+    Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
+        console.log('callbacks');
+        var dataset = data.datasets[tooltipItem.datasetIndex];
+       var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+         return previousValue + currentValue;
+       });
+       var currentValue = dataset.data[tooltipItem.index];
+       var precentage = Math.floor(((currentValue/total) * 100)+0.5);
+       return precentage + '%';
+    }
 }
-*/
- 
 </script>
