@@ -50,6 +50,7 @@
                             type: '{{ $this->getType() }}',
                             data: this.applyColorToData(data),
                             options: {{ json_encode($this->getOptions()) }} ?? {},
+                		})
                     },
  
                     applyColorToData: function (data) {
@@ -89,7 +90,7 @@
 </x-filament::widget>
 
 <script type="text/javascript">
-
+/*
 Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
     console.log('callbacks');
     var dataset = data.datasets[tooltipItem.datasetIndex];
@@ -100,6 +101,6 @@ Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
    var precentage = Math.floor(((currentValue/total) * 100)+0.5);
    return precentage + '%';
 }
-
+*/
  
 </script>
