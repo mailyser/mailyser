@@ -10,6 +10,8 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
 {
     protected static ?string $heading = 'Mailbox Distribution';
 
+    protected static string $view = 'filament::widgets.chart-widget-custom';
+    
     public ?Model $record = null;
 
     protected function getPollingInterval(): ?string
