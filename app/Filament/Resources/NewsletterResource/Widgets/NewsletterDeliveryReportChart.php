@@ -12,6 +12,14 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
 
     protected static string $view = 'filament::widgets.chart-widget-custom';
     
+    protected static ?array $options = [
+        'plugins' => [
+            'legend' => [
+                'display' => false,
+            ],
+        ],
+    ];
+    
     public ?Model $record = null;
 
     protected function getPollingInterval(): ?string

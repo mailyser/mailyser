@@ -49,8 +49,8 @@
                         return this.chart = new Chart($el, {
                             type: '{{ $this->getType() }}',
                             data: this.applyColorToData(data),
-                            options:  callbackTooltip,
-                           // options: {{ json_encode($this->getOptions()) }} ?? {},
+                           // options:  callbackTooltip,
+                            options: {{ json_encode($this->getOptions()) }} ?? {},
                         })
                     },
 
