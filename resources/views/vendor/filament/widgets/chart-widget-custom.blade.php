@@ -54,8 +54,9 @@
                                 plugins: {
                                     tooltip: {
                                         callbacks: {
-                                            label: function(tooltipItem, data) {
-                                                    console.log(tooltipItem);
+                                            label: function(context) {
+                                                let label = context.dataset.label || '';
+                                                console.log(context);
                                              
                                                return 'daniel';
                                             }
