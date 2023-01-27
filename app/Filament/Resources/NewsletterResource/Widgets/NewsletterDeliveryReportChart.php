@@ -11,15 +11,7 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
     protected static ?string $heading = 'Mailbox Distribution';
 
     protected static string $view = 'filament::widgets.chart-widget-custom';
-    /*
-    protected static ?array $options = [
-        'plugins' => [
-            'legend' => [
-                'display' => false,
-            ],
-        ],
-    ];
-    */
+        
     public ?Model $record = null;
 
     protected function getPollingInterval(): ?string
@@ -29,8 +21,7 @@ class NewsletterDeliveryReportChart extends DoughnutChartWidget
         }
 
         return '15s';
-    }
-
+    } 
     /**
      * What mailboxes emails landed in.
      */

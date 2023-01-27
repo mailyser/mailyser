@@ -49,27 +49,9 @@
                         return this.chart = new Chart($el, {
                             type: '{{ $this->getType() }}',
                             data: this.applyColorToData(data),
-                            options:  {
-                            	tooltips : {
-                            		callbacks: {
-                            			label : this.callbackTooltip
-                            		}
-                            	}
-                            },
-                        })
+                            options: {{ json_encode($this->getOptions()) }} ?? {},
                     },
-
-                    callbackTooltip :  function(tooltipItem, data) {
-                    	        console.log('callbacks');
-                    	           var dataset = data.datasets[tooltipItem.datasetIndex];
-                    	          var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-                    	            return previousValue + currentValue;
-                    	          });
-                    	          var currentValue = dataset.data[tooltipItem.index];
-                    	          var precentage = Math.floor(((currentValue/total) * 100)+0.5);
-                    	          return precentage + '%';
-    	        	},
-
+ 
                     applyColorToData: function (data) {
                         data.datasets.forEach((dataset, datasetIndex) => {
                             if (! dataset.backgroundColor) {
@@ -105,4 +87,19 @@
         </div>
     </x-filament::card>
 </x-filament::widget>
+
+<script type="text/javascript">
+
+Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
+    console.log('callbacks');
+    var dataset = data.datasets[tooltipItem.datasetIndex];
+   var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+     return previousValue + currentValue;
+   });
+   var currentValue = dataset.data[tooltipItem.index];
+   var precentage = Math.floor(((currentValue/total) * 100)+0.5);
+   return precentage + '%';
+}
+
  
+</script>
