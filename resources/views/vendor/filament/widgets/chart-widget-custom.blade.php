@@ -46,13 +46,27 @@
                     initChart: function (data = null) {
                         data = data ?? {{ json_encode($this->getCachedData()) }}
 
-						setupDefaults();
-                       
-
                         return this.chart = new Chart($el, {
                             type: '{{ $this->getType() }}',
                             data: this.applyColorToData(data),
-                            options: {{ json_encode($this->getOptions()) }} ?? {},
+                            
+                            options: {
+                                plugins: {
+                                    tooltip: {
+                                        callbacks: {
+                                            label: function(context) {
+                                                let label = context.dataset.label || '';
+                        
+                                                if (label) {
+                                                    label += ': ';
+                                                }
+                                                return 'daniel';
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+     
                 		})
                     },
  
