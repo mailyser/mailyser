@@ -57,7 +57,7 @@
                                             label: function(context, data) {
                                                 let label = context.dataset.label || '';
                                                 console.log(context);
-                                                console.log(data));
+                                                console.log(data);
                                              
                                                return 'daniel';
                                             }
