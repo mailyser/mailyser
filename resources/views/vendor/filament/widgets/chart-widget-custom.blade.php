@@ -49,10 +49,26 @@
                         return this.chart = new Chart($el, {
                             type: '{{ $this->getType() }}',
                             data: this.applyColorToData(data),
-                           // options:  callbackTooltip,
-                            options: {{ json_encode($this->getOptions()) }} ?? {},
+                            options:  {
+                            	tooltips : {
+                            		callbacks: {
+                            			label : this.callbackTooltip
+                            		}
+                            	}
+                            },
                         })
                     },
+
+                    callbackTooltip :  function(tooltipItem, data) {
+                    	        console.log('callbacks');
+                    	           var dataset = data.datasets[tooltipItem.datasetIndex];
+                    	          var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    	            return previousValue + currentValue;
+                    	          });
+                    	          var currentValue = dataset.data[tooltipItem.index];
+                    	          var precentage = Math.floor(((currentValue/total) * 100)+0.5);
+                    	          return precentage + '%';
+    	        	},
 
                     applyColorToData: function (data) {
                         data.datasets.forEach((dataset, datasetIndex) => {
@@ -89,22 +105,4 @@
         </div>
     </x-filament::card>
 </x-filament::widget>
-
-<script type="text/javascript">
-var callbackTooltip = {
-		tooltips: {
-	      callbacks: {
-	        label: function(tooltipItem, data) {
-	        console.log('callbacks');
-	           var dataset = data.datasets[tooltipItem.datasetIndex];
-	          var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
-	            return previousValue + currentValue;
-	          });
-	          var currentValue = dataset.data[tooltipItem.index];
-	          var precentage = Math.floor(((currentValue/total) * 100)+0.5);
-	          return precentage + '%';
-	        }
-	      }
-	    }
-}
-</script>
+ 
