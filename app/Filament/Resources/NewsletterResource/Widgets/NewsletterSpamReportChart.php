@@ -19,6 +19,10 @@ class NewsletterSpamReportChart extends DoughnutChartWidget
         ],
     ];
     */
+    
+    protected static string $view = 'filament::widgets.chart-widget-custom';
+    
+    
     public ?Model $record = null;
 
     protected function getPollingInterval(): ?string

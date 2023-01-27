@@ -65,7 +65,7 @@
                                               }
                                               var percentage = parseFloat((currentValue/total*100).toFixed(1));
                                     
-                                              return label + ' : ' +currentValue + ' (' + percentage + '%)';
+                                              return label + ' : ' +  percentage + '%';
                                             }
                                         }
                                     }
@@ -113,6 +113,8 @@
 
 <script type="text/javascript">
 function setupDefaults() {
+    //return label + ' : ' +currentValue + ' (' + percentage + '%)';
+	
 	console.log('setupDefaults');
     Chart.defaults.plugins.tooltip.callbacks.label = function(tooltipItem, data) {
         console.log('callbacks');
