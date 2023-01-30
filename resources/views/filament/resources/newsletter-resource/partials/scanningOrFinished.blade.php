@@ -29,7 +29,25 @@
 
      <?php 
      $newsletterScore = $record->processSpamScore();
-     if($newsletterScore) {
+     if($newsletterScore) { 
+         /*
+         5+ - Do not send
+         2-4.99 - Send with Caution
+         0-2 - Good
+         <0 - Excellent
+         */
+         $currentScore = $newsletterScore->spam_score;
+         $spamScoreVal = '';
+         if($currentScore >= 5) {
+             $spamScoreVal = 'Do not send';
+         }else if($currentScore > 2 && $currentScore < 5 ) {
+             $spamScoreVal = 'Send with Caution';
+         }else if($currentScore > 0 && $currentScore < 2 ) {
+             $spamScoreVal = 'Good';
+         }else if($currentScore   < 0 ) {
+             $spamScoreVal = 'Excellent';
+         }
+         
      ?>
 
     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6">
@@ -55,7 +73,8 @@
 							
 							<h1 style="font-size: 50px;"><?php 
 							echo ($newsletterScore->spam_score)
-							?></h1>
+							?><br />
+							<?php echo $spamScoreVal?></h1>
 							</div>
 
 						<div></div>
@@ -78,16 +97,16 @@
 							<h2
 								class="text-xl font-semibold tracking-tight filament-card-heading">
 								Spam Report</h2>
-
+							<a style="color: rgb(99 102 241);" class='toggle-report' href="javascript: toggleReport()">Show Report</a>
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700">
+							class="filament-hr border-t dark:border-gray-700 report-section" style="display: none;">
 							
 							<?php 
 							echo nl2br($newsletterScore->spam_report)
 							?>
-							</div>
+						</div>
 
 						<div></div>
 					</div>
@@ -98,3 +117,10 @@
 		</div>
 	</div>
   <?php }?>
+
+  <script type="text/javascript">
+function toggleReport() {
+	$('.report-section').toggle();
+	$('.toggle-report').html( $('.report-section:visible').length == 1 ? "Hide Report" : "Show Report" );
+}
+  </script>
