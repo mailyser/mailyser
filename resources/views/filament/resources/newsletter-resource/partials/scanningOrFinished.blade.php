@@ -38,14 +38,21 @@
          */
          $currentScore = $newsletterScore->spam_score;
          $spamScoreVal = '';
+         $color = '';
          if($currentScore >= 5) {
              $spamScoreVal = 'Do not send';
+             $color = 'red';
          }else if($currentScore > 2 && $currentScore < 5 ) {
              $spamScoreVal = 'Send with Caution';
+             $color = 'yellow';
          }else if($currentScore > 0 && $currentScore < 2 ) {
              $spamScoreVal = 'Good';
+             $color = 'blue';
+             
          }else if($currentScore   < 0 ) {
              $spamScoreVal = 'Excellent';
+             $color = 'green';
+             
          }
          
      ?>
@@ -73,8 +80,9 @@
 							
 							<h1 style="font-size: 50px;"><?php 
 							echo ($newsletterScore->spam_score)
-							?><br />
-							<?php echo $spamScoreVal?></h1>
+							?> 
+							</h1>
+							<h3 style="<?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
 							</div>
 
 						<div></div>
@@ -117,7 +125,7 @@
 		</div>
 	</div>
   <?php }?>
-
+<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script type="text/javascript">
 function toggleReport() {
 	$('.report-section').toggle();
