@@ -44,7 +44,7 @@
              $color = 'red';
          }else if($currentScore > 2 && $currentScore < 5 ) {
              $spamScoreVal = 'Send with Caution';
-             $color = 'yellow';
+             $color = 'orange';
          }else if($currentScore > 0 && $currentScore < 2 ) {
              $spamScoreVal = 'Good';
              $color = 'blue';
@@ -82,7 +82,7 @@
 							echo ($newsletterScore->spam_score)
 							?> 
 							</h1>
-							<h3 style="<?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
+							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
 							</div>
 
 						<div></div>
@@ -105,11 +105,11 @@
 							<h2
 								class="text-xl font-semibold tracking-tight filament-card-heading">
 								Spam Report</h2>
-							<a style="color: rgb(99 102 241);" class='toggle-report' href="javascript: toggleReport()">Show Report</a>
+							<a style="color: rgb(99 102 241);" class="toggle" href="#report">Show Report</a>
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700 report-section" style="display: none;">
+							class="filament-hr border-t dark:border-gray-700 toggle-content">
 							
 							<?php 
 							echo nl2br($newsletterScore->spam_report)
@@ -126,10 +126,51 @@
 	</div>
   <?php }?>
   
-<!--   <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
-  <script type="text/javascript">
+ <style>
+.toggle-content {
+	display: none;
+}
+
+.toggle-content.is-visible {
+	display: block;
+}
+</style>
+   <script type="text/javascript">
 function toggleReport() {
 	$('.report-section').toggle();
 	$('.toggle-report').html( $('.report-section:visible').length == 1 ? "Hide Report" : "Show Report" );
 }
+
+//Show an element
+var show = function (elem) {
+	elem.classList.add('is-visible');
+};
+
+// Hide an element
+var hide = function (elem) {
+	elem.classList.remove('is-visible');
+};
+
+// Toggle element visibility
+var toggle = function (elem) {
+	elem.classList.toggle('is-visible');
+};
+
+// Listen for click events
+document.addEventListener('click', function (event) {
+
+	// Make sure clicked element is our toggle
+	if (!event.target.classList.contains('toggle')) return;
+
+	// Prevent default link behavior
+	event.preventDefault();
+
+	// Get the content
+	var content = document.querySelector(event.target.hash);
+	if (!content) return;
+
+	// Toggle the content
+	toggle(content);
+
+}, false);
   </script>
