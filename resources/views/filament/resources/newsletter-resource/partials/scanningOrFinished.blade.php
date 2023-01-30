@@ -59,7 +59,7 @@
          
      ?>
 
-    <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6">
+    <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
 
 
 		<div  
@@ -96,7 +96,7 @@
 		</div>
 
 
-	<div   class="filament-widget col-span-1 filament-widgets-chart-widget">
+	<div   class="filament-widget col-span-1 filament-widgets-chart-widget" >
 			<div
 				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
 
@@ -111,7 +111,7 @@
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700" class="spam-report">
+							class="filament-hr border-t dark:border-gray-700" id="spam-report">
 							
 							<?php 
 							echo nl2br($newsletterScore->spam_report)
@@ -129,12 +129,12 @@
   <?php }?>
    <script type="text/javascript">
    function toggleReport(id, text, btn) {
-		if(document.querySelector('.spam-report').style.display == 'block') {
-			document.querySelector('.spam-report').style.display = 'none';
+		if(document.getElementById('spam-report').style.display == 'block') {
+			document.getElementById('spam-report').style.display = 'none';
 	        document.getElementById("toggle-report").innerHTML = "Show Report";
 			
 		}else {
-			document.querySelector('.spam-report').style.display = 'block';
+			document.getElementById('spam-report').style.display = 'block';
 	        document.getElementById("toggle-report").innerHTML = "Hide Report";
 			
 		}
