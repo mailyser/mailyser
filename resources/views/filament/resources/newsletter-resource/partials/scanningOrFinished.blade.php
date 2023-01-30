@@ -111,7 +111,7 @@
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700" id="spam-report">
+							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: none;">
 							
 							<?php 
 							echo nl2br($newsletterScore->spam_report)
