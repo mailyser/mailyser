@@ -1,3 +1,4 @@
+<div>
 <x-filament::card>
     <x-filament::card.heading>
         @if($record->finishedScanning())
@@ -27,21 +28,7 @@
 
 
 
-   <script type="text/javascript">
-   function toggleReport(id, text, btn) {
-		if(document.querySelector('.spam-report').style.display == 'block') {
-			document.querySelector('.spam-report').style.display = 'none';
-	        document.getElementById("toggle-report").innerHTML = "Show Report";
-			
-		}else {
-			document.querySelector('.spam-report').style.display = 'block';
-	        document.getElementById("toggle-report").innerHTML = "Hide Report";
-			
-		}
-	    
-	}
-  </script>
-  
+
      <?php 
      $newsletterScore = $record->processSpamScore();
      if($newsletterScore) { 
@@ -140,4 +127,19 @@
 		</div>
 	</div>
   <?php }?>
-   
+   <script type="text/javascript">
+   function toggleReport(id, text, btn) {
+		if(document.querySelector('.spam-report').style.display == 'block') {
+			document.querySelector('.spam-report').style.display = 'none';
+	        document.getElementById("toggle-report").innerHTML = "Show Report";
+			
+		}else {
+			document.querySelector('.spam-report').style.display = 'block';
+	        document.getElementById("toggle-report").innerHTML = "Hide Report";
+			
+		}
+	    
+	}
+  </script>
+  
+</div>
