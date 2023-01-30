@@ -105,11 +105,11 @@
 							<h2
 								class="text-xl font-semibold tracking-tight filament-card-heading">
 								Spam Report</h2>
-							<a style="color: rgb(99 102 241);" class="toggle" href="#report">Show Report</a>
+							<a style="color: rgb(99 102 241);" id="toggle-report" href="javascript: toggleReport();">Show Report</a>
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700 toggle-content">
+							class="filament-hr border-t dark:border-gray-700" class="spam-report">
 							
 							<?php 
 							echo nl2br($newsletterScore->spam_report)
@@ -125,52 +125,18 @@
 		</div>
 	</div>
   <?php }?>
-  
- <style>
-.toggle-content {
-	display: none;
-}
-
-.toggle-content.is-visible {
-	display: block;
-}
-</style>
+   
    <script type="text/javascript">
-function toggleReport() {
-	$('.report-section').toggle();
-	$('.toggle-report').html( $('.report-section:visible').length == 1 ? "Hide Report" : "Show Report" );
-}
-
-//Show an element
-var show = function (elem) {
-	elem.classList.add('is-visible');
-};
-
-// Hide an element
-var hide = function (elem) {
-	elem.classList.remove('is-visible');
-};
-
-// Toggle element visibility
-var toggle = function (elem) {
-	elem.classList.toggle('is-visible');
-};
-
-// Listen for click events
-document.addEventListener('click', function (event) {
-
-	// Make sure clicked element is our toggle
-	if (!event.target.classList.contains('toggle')) return;
-
-	// Prevent default link behavior
-	event.preventDefault();
-
-	// Get the content
-	var content = document.querySelector(event.target.hash);
-	if (!content) return;
-
-	// Toggle the content
-	toggle(content);
-
-}, false);
+   function toggleReport(id, text, btn) {
+		if(document.querySelector('.spam-report').style.display == 'block') {
+			document.querySelector('.spam-report').style.display = 'none';
+	        document.getElementById("toggle-report").innerHTML = "Show Report";
+			
+		}else {
+			document.querySelector('.spam-report').style.display = 'block';
+	        document.getElementById("toggle-report").innerHTML = "Hide Report";
+			
+		}
+	    
+	}
   </script>
