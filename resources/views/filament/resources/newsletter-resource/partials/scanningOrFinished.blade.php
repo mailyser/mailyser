@@ -58,7 +58,7 @@
          }
           
          $arr = explode("\n", $newsletterScore->spam_report);
-         $rules = json_decode($newsletterScore->spam_rules);
+         $rules = json_decode($newsletterScore->spam_rules, true);
          $index = 0 ;
          
          $newRules = [];
