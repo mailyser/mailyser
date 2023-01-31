@@ -181,6 +181,7 @@
     }
     table.score-report, table.score-report th, table.score-report td {
       border: 1px solid;
+      font-size: 14px;
     }
   </style>
 </div>
