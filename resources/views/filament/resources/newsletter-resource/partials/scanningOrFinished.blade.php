@@ -64,7 +64,7 @@
          $newRules = [];
           
          $ruleIndex = 0;
-         var_dump($rec);
+         var_dump($arr);
          die;
          foreach($arr as $index => $rec) {
              $recInfo = explode(' ', trim($rec));
