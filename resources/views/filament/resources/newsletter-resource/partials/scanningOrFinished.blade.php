@@ -73,9 +73,7 @@
                  $newRules[] = $currentRule;
                  $ruleIndex++;
              }
-         }
-         var_dump($newRules);
-         die;
+         } 
      ?>
 
     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
@@ -131,10 +129,7 @@
 
 						<div aria-hidden="true"
 							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: none;">
-							
-							<?php 
-							//echo nl2br($newsletterScore->spam_report)
-							?>
+							 
 							<table class='score-report'>
 								<thead>
 									<tr>
