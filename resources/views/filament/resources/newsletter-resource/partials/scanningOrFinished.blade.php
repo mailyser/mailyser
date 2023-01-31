@@ -182,6 +182,7 @@
     table.score-report, table.score-report th, table.score-report td {
       border: 1px solid;
       font-size: 14px;
+      padding: 5px;
     }
   </style>
 </div>
