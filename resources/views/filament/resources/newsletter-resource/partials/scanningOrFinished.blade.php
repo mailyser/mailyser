@@ -62,16 +62,18 @@
          $index = 0 ;
          
          $newRules = [];
-         
-         var_dump($arr);
-         die;
-         
+          
+         $ruleIndex = 0;
          foreach($arr as $index => $rec) {
              if($index > 1) {
-                 $currentRule = $rules[$index - 2]; 
+                 
                  $recInfo = explode(' ', trim($rec));
-                 $currentRule['rule'] = trim($recInfo[1]);
-                 $newRules[] = $currentRule;
+                 if(is_numeric($recInfo[0])) {
+                     $currentRule = $rules[$ruleIndex]; 
+                     $currentRule['rule'] = trim($recInfo[1]);
+                     $newRules[] = $currentRule;
+                     $ruleIndex++;
+                 }
              }
          }
          
