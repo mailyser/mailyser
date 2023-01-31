@@ -64,16 +64,15 @@
          $newRules = [];
           
          $ruleIndex = 0;
+         var_dump($rec);
+         die;
          foreach($arr as $index => $rec) {
-             if($index > 1) {
-                 
-                 $recInfo = explode(' ', trim($rec));
-                 if(is_numeric($recInfo[0])) {
-                     $currentRule = $rules[$ruleIndex]; 
-                     $currentRule['rule'] = trim($recInfo[1]);
-                     $newRules[] = $currentRule;
-                     $ruleIndex++;
-                 }
+             $recInfo = explode(' ', trim($rec));
+             if(is_numeric($recInfo[0])) {
+                 $currentRule = $rules[$ruleIndex]; 
+                 $currentRule['rule'] = trim($recInfo[1]);
+                 $newRules[] = $currentRule;
+                 $ruleIndex++;
              }
          }
          
