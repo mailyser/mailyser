@@ -78,6 +78,8 @@ class Newsletter extends Model
                     $newsletterSpamScore->is_processed = 1;
                     $newsletterSpamScore->spam_score = $spamData['score'];
                     $newsletterSpamScore->spam_report = $spamData['report'];
+                    $newsletterSpamScore->spam_rules = json_encode($spamData['rules']);
+                    
                     $newsletterSpamScore->save();
                 }
             }

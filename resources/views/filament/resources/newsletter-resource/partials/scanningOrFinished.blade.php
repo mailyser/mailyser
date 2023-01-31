@@ -56,6 +56,21 @@
              $color = 'green';
              
          }
+          
+         $arr = explode("\n", $newsletterScore->spam_report);
+         $rules = json_decode($newsletterScore->spam_rules);
+         $index = 0 ;
+         
+         $newRules = [];
+         
+         foreach($arr as $index => $rec) {
+             if($index > 1) {
+                 $currentRule = $rules[$index - 2]; 
+                 $recInfo = explode(' ', trim($rec));
+                 $currentRule['rule'] = trim($recInfo[1]);
+                 $newRules[] = $currentRule;
+             }
+         }
          
      ?>
 
@@ -114,8 +129,28 @@
 							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: none;">
 							
 							<?php 
-							echo nl2br($newsletterScore->spam_report)
+							//echo nl2br($newsletterScore->spam_report)
 							?>
+							<table class='score-report'>
+								<thead>
+									<tr>
+										<th>Score</th>
+										<th>Rule</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($newRules as $rule) {
+									    ?>
+									    <tr>
+									    	<td><?php echo $rule['score']?></td>
+									    	<td><?php echo $rule['rule']?></td>
+									    	<td><?php echo $rule['description']?></td>
+									    </tr>
+									    <?php 
+									}?>
+								</tbody>
+							</table>
 						</div>
 
 						<div></div>
@@ -141,5 +176,12 @@
 	    
 	}
   </script>
-  
+  <style>
+    table.score-report {
+	   width: 100%;
+    }
+    table.score-report, table.score-report th, table.score-report td {
+      border: 1px solid;
+    }
+  </style>
 </div>
