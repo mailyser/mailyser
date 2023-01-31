@@ -63,6 +63,9 @@
          
          $newRules = [];
          
+         var_dump($arr);
+         die;
+         
          foreach($arr as $index => $rec) {
              if($index > 1) {
                  $currentRule = $rules[$index - 2]; 
