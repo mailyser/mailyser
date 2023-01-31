@@ -34,6 +34,9 @@ class SendingAddress extends Page implements HasForms
 
     protected static function shouldRegisterNavigation(): bool
     {
+        var_dump(auth()->user()->senders->count());
+        die;
+        
         return ! (bool) auth()->user()->senders->count();
     }
 
