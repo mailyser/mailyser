@@ -64,8 +64,7 @@
          $newRules = [];
           
          $ruleIndex = 0;
-         var_dump($arr);
-         die;
+        
          foreach($arr as $index => $rec) {
              $recInfo = explode(' ', trim($rec));
              if(is_numeric($recInfo[0])) {
@@ -75,7 +74,8 @@
                  $ruleIndex++;
              }
          }
-         
+         var_dump($newRules);
+         die;
      ?>
 
     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
