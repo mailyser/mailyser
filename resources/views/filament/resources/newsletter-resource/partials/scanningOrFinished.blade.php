@@ -206,7 +206,7 @@
 		 gauge.maxValue = 10; // set max gauge value
 		 gauge.setMinValue(-5);  // Prefer setter over gauge.minValue = 0
 		 gauge.animationSpeed = 32; // set animation speed (32 is default value)
-		 gauge.set(1250); // set actual value
+		 gauge.set(<?php echo $newsletterScore->spam_score?>); // set actual value
 	}
   </script>
   <style>
