@@ -149,8 +149,9 @@
 									    ?>
 									    <tr>
 									    	<td><?php echo $rule['score']?></td>
- 									    	<td><?php echo $rule['rule']?>
- 									    	<br />
+ 									    	<td>
+ 									    	<b><?php echo $rule['rule']?></b>
+ 									    	<br /><br />
  									    	<?php echo $rule['description']?></td>
 									    </tr>
 									    <?php 
