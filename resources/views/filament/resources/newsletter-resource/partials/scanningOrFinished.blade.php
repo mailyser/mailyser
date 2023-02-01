@@ -106,7 +106,7 @@
 							</h1>
 							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
 							
-							<div id="gauge"></div>
+							<canvas id="gauge"></canvas>
 							
 							</div>
 
