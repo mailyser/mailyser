@@ -98,9 +98,9 @@
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700">
+							class="filament-hr border-t dark:border-gray-700" style="text-align: center;">
 					
-							<canvas id="gauge"></canvas>
+							<canvas id="gauge" style="margin: auto;"></canvas>
 							
 							<h1 style="font-size: 50px;"><?php 
 							echo ($newsletterScore->spam_score)
@@ -141,8 +141,7 @@
 								<thead>
 									<tr>
 										<th>Score</th>
-										<th>Rule</th>
-										<th>Description</th>
+ 										<th>Description</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -150,8 +149,9 @@
 									    ?>
 									    <tr>
 									    	<td><?php echo $rule['score']?></td>
-									    	<td><?php echo $rule['rule']?></td>
-									    	<td><?php echo $rule['description']?></td>
+ 									    	<td><?php echo $rule['rule']?>
+ 									    	<br />
+ 									    	<?php echo $rule['description']?></td>
 									    </tr>
 									    <?php 
 									}?>
