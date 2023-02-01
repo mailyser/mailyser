@@ -163,7 +163,14 @@
 	</div>
   <?php }?>
    <script type="text/javascript">
-   function toggleReport(id, text, btn) {
+   function toggleReport() {
+
+	    $('#toggle-report').toggle();
+
+	   
+
+	    $('#toggle-report').html(  $('#spam-report:visible').length == 1 ? 'Hide Report' : 'Show Report' );
+	    /*
 		if(document.getElementById('spam-report').style.display == 'block') {
 			document.getElementById('spam-report').style.display = 'none';
 	        document.getElementById("toggle-report").innerHTML = "Show Report";
@@ -173,7 +180,7 @@
 	        document.getElementById("toggle-report").innerHTML = "Hide Report";
 			
 		}
-	    
+	    */
 	}
   </script>
   <style>
