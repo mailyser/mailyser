@@ -1,5 +1,7 @@
 <div>
 <script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/gauge.js/1.2.1/gauge.min.js" integrity="sha512-CvDF0JVxliK2VV8gGA7qEEyRPcORRA2miPvpDhXvlfw0TpbGAmoQHMmEP2eziwKLsNz8PaoNfs4yjnlcpn4E3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <x-filament::card>
     <x-filament::card.heading>
         @if($record->finishedScanning())
@@ -103,6 +105,9 @@
 							?> 
 							</h1>
 							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
+							
+							<div id="gauge"></div>
+							
 							</div>
 
 						<div></div>
@@ -164,23 +169,37 @@
   <?php }?>
    <script type="text/javascript">
    function toggleReport() {
-
 	    $('#spam-report').toggle();
-
-	   
-
 	    $('#toggle-report').html(  $('#spam-report:visible').length == 1 ? 'Hide Report' : 'Show Report' );
-	    /*
-		if(document.getElementById('spam-report').style.display == 'block') {
-			document.getElementById('spam-report').style.display = 'none';
-	        document.getElementById("toggle-report").innerHTML = "Show Report";
-			
-		}else {
-			document.getElementById('spam-report').style.display = 'block';
-	        document.getElementById("toggle-report").innerHTML = "Hide Report";
-			
-		}
-	    */
+	}
+   $( document ).ready(function() {
+	    setupGauge();
+	});
+	function setupGauge() {
+   var opts = {
+		   angle: -0.2, // The span of the gauge arc
+		   lineWidth: 0.2, // The line thickness
+		   radiusScale: 1, // Relative radius
+		   pointer: {
+		     length: 0.6, // // Relative to gauge radius
+		     strokeWidth: 0.035, // The thickness
+		     color: '#000000' // Fill color
+		   },
+		   limitMax: false,     // If false, max value increases automatically if value > maxValue
+		   limitMin: false,     // If true, the min value of the gauge will be fixed
+		   colorStart: '#6FADCF',   // Colors
+		   colorStop: '#8FC0DA',    // just experiment with them
+		   strokeColor: '#E0E0E0',  // to see which ones work best for you
+		   generateGradient: true,
+		   highDpiSupport: true,     // High resolution support
+		   
+		 };
+		 var target = document.getElementById('gauge'); // your canvas element
+		 var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+		 gauge.maxValue = 3000; // set max gauge value
+		 gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+		 gauge.animationSpeed = 32; // set animation speed (32 is default value)
+		 gauge.set(1250); // set actual value
 	}
   </script>
   <style>
