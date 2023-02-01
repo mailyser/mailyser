@@ -34,6 +34,7 @@
 
      <?php 
      $newsletterScore = $record->processSpamScore();
+     $color = '';
      if($newsletterScore) { 
          /*
          5+ - Do not send
@@ -43,23 +44,22 @@
          */
          $currentScore = $newsletterScore->spam_score;
          $spamScoreVal = '';
-         $color = '';
+         
          if($currentScore >= 5) {
              $spamScoreVal = 'Do not send';
-             $color = 'red';
+             $color = '#FF0000';
          }else if($currentScore > 2 && $currentScore < 5 ) {
              $spamScoreVal = 'Send with Caution';
-             $color = 'orange';
+             $color = '#ffc800';
          }else if($currentScore > 0 && $currentScore < 2 ) {
              $spamScoreVal = 'Good';
-             $color = 'blue';
+             $color = '#0000FF';
              
          }else if($currentScore   < 0 ) {
              $spamScoreVal = 'Excellent';
-             $color = 'green';
+             $color = '#7FFF00';
              
-         }
-          
+         } 
          $arr = explode("\n", $newsletterScore->spam_report);
          $rules = json_decode($newsletterScore->spam_rules, true);
          $index = 0 ;
@@ -177,6 +177,10 @@
 	});
    var gauge = false;
 	function setupGauge() {
+
+		var color = '<?php echo $color?>';
+		
+		
    var opts = {
 		   angle: -0.2, // The span of the gauge arc
 		   lineWidth: 0.2, // The line thickness
@@ -188,15 +192,15 @@
 		   },
 		   limitMax: false,     // If false, max value increases automatically if value > maxValue
 		   limitMin: false,     // If true, the min value of the gauge will be fixed
-		   colorStart: '#6FADCF',   // Colors
-		   colorStop: '#8FC0DA',    // just experiment with them
+		   colorStart: color,   // Colors
+		   colorStop: color,    // just experiment with them
 		   strokeColor: '#E0E0E0',  // to see which ones work best for you
 		   generateGradient: true,
 		   highDpiSupport: true,     // High resolution support
 
 		   staticZones: [
 			   {strokeStyle: "#FF0000", min: 100, max: 130}, // Red from 100 to 130
-			   {strokeStyle: "#FFFF33", min: 2, max: 5}, // Yellow
+			   {strokeStyle: "#ffc800", min: 2, max: 5}, // Yellow
 			   {strokeStyle: "#0000FF", min: 0, max: 2}, // orange
 			   {strokeStyle: "#7FFF00", min: -5, max: 0}, // Green
  			],
