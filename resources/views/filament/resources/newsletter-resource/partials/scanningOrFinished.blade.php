@@ -192,12 +192,19 @@
 		   strokeColor: '#E0E0E0',  // to see which ones work best for you
 		   generateGradient: true,
 		   highDpiSupport: true,     // High resolution support
-		   
+
+		   staticZones: [
+			   {strokeStyle: "#FF0000", min: 100, max: 130}, // Red from 100 to 130
+			   {strokeStyle: "#FFFF33", min: 2, max: 5}, // Yellow
+			   {strokeStyle: "#0000FF", min: 0, max: 2}, // orange
+			   {strokeStyle: "#7FFF00", min: -5, max: 0}, // Green
+ 			],
 		 };
+ 
 		 var target = document.getElementById('gauge'); // your canvas element
 		 var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-		 gauge.maxValue = 3000; // set max gauge value
-		 gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+		 gauge.maxValue = 10; // set max gauge value
+		 gauge.setMinValue(-5);  // Prefer setter over gauge.minValue = 0
 		 gauge.animationSpeed = 32; // set animation speed (32 is default value)
 		 gauge.set(1250); // set actual value
 	}
