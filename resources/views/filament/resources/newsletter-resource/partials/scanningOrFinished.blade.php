@@ -47,17 +47,17 @@
          
          if($currentScore >= 5) {
              $spamScoreVal = 'Do not send';
-             $color = '#FF0000';
+             $color = '#FF0000'; //red
          }else if($currentScore > 2 && $currentScore < 5 ) {
              $spamScoreVal = 'Send with Caution';
-             $color = '#ffc800';
+             $color = '#ffc800'; //orange
          }else if($currentScore > 0 && $currentScore < 2 ) {
              $spamScoreVal = 'Good';
-             $color = '#0000FF';
+             $color = '#0000FF'; //blue
              
          }else if($currentScore   < 0 ) {
              $spamScoreVal = 'Excellent';
-             $color = '#7FFF00';
+             $color = '#7FFF00'; //green 
              
          } 
          $arr = explode("\n", $newsletterScore->spam_report);
@@ -99,6 +99,8 @@
 
 						<div aria-hidden="true"
 							class="filament-hr border-t dark:border-gray-700">
+					
+							<canvas id="gauge"></canvas>
 							
 							<h1 style="font-size: 50px;"><?php 
 							echo ($newsletterScore->spam_score)
@@ -106,7 +108,6 @@
 							</h1>
 							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
 							
-							<canvas id="gauge"></canvas>
 							
 							</div>
 
