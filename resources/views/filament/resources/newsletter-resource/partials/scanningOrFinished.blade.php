@@ -165,7 +165,7 @@
    <script type="text/javascript">
    function toggleReport() {
 
-	    $('#toggle-report').toggle();
+	    $('#spam-report').toggle();
 
 	   
 
