@@ -79,8 +79,7 @@
          } 
          
          $spamInsights = $record->getSpamInsights();
-         var_dump($spamInsights);
-         die;
+         $matchingInsights = [];
      ?>
 
     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
@@ -150,6 +149,9 @@
 								</thead>
 								<tbody>
 									<?php foreach($newRules as $rule) {
+									    if(isset($spamInsights[$rule['rule']])) {
+									        $matchingInsights[] = ['rule' => $rule['rule'], 'insights' => $spamInsights[$rule['rule']]];
+									    }
 									    ?>
 									    <tr>
 									    	<td><?php echo $rule['score']?></td>
@@ -163,7 +165,37 @@
 								</tbody>
 							</table>
 						</div>
+						
+						<div class="flex items-center justify-between gap-8">
+							<h2
+								class="text-xl font-semibold tracking-tight filament-card-heading">
+								Insight Report</h2>
+							<a style="color: rgb(99 102 241);" id="toggle-insight-report" href="javascript: toggleInsightReport();">Show Insight Report</a>
+						</div>
 
+						<div aria-hidden="true"
+							class="filament-hr border-t dark:border-gray-700" id="insight-report" style="display: none;">
+							 
+							<table class='score-report'>
+								<thead>
+									<tr>
+										<th>Rule</th>
+ 										<th>Insights</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($matchingInsights as $matchingInsight) {
+									    ?>
+									    <tr>
+  									    	<td><b> <?php echo $matchingInsight['rule']?></b></td>
+ 									    	<td><?php echo $matchingInsight['insights']?></td>
+									    </tr>
+									    <?php 
+									}?>
+								</tbody>
+							</table>
+						</div>
+						
 						<div></div>
 					</div>
 				</div>
@@ -177,6 +209,10 @@
    function toggleReport() {
 	    $('#spam-report').toggle();
 	    $('#toggle-report').html(  $('#spam-report:visible').length == 1 ? 'Hide Report' : 'Show Report' );
+	}
+   function toggleInsightReport() {
+	    $('#insight-report').toggle();
+	    $('#toggle-insight-report').html(  $('#insight-report:visible').length == 1 ? 'Hide Insight Report' : 'Show Insight Report' );
 	}
    $( document ).ready(function() {
 	    setupGauge();

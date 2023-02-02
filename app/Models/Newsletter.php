@@ -130,10 +130,16 @@ class Newsletter extends Model
         $insights = [];
         if (($open = fopen(storage_path() . "/spam-insights.csv", "r")) !== FALSE) {
             
-            
+            $isStart = false;
             while (($data = fgetcsv($open)) !== FALSE) {
                 
-                $insights[] = $data;
+                if($isStart) {
+                    //$insights[] = ['rule' => trim($data[0]), 'insights' => trim($data[2])];
+                    
+                    $insights[trim($data[0])] = trim($data[2]);
+                }else{
+                    $isStart = true;
+                }
                 
             }
             
