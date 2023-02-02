@@ -1,0 +1,57 @@
+Spam Assasin Test Name,Description,ChatGPT Response on how to fix formatted
+RCVD_IN_ZEN_BLOCKED_OPENDNS,RBL: ADMINISTRATOR NOTICE: The query to zen.spamhaus.org was blocked due to usage of an open resolver. See https://www.spamhaus.org/returnc/pub/ [209.85.220.41 listed in zen.spamhaus.org],"This issue indicates that the email you sent was received by a server that is protected by OpenDNS and was determined to be coming from a source known for sending spam. To resolve this, you can take the following steps:
+Check if the IP address of the server you're sending emails from is listed on any spam blacklists. If it is, resolve the issue with the blacklist.
+
+Ensure that your email server is properly configured and not an open relay.
+
+Implement email sending best practices such as using authentication mechanisms and a reputable email service provider.
+
+Monitor your email reputation and avoid sending emails that are considered spammy.
+
+"
+RCVD_IN_BL_SPAMCOP_NET,RCVD_IN_BL_SPAMCOP_NET RBL: Received via a relay in bl.spamcop.net [Blocked - see ],"This issue indicates that the email you sent was received by a relay that is listed on the SpamCop blocklist. To resolve this, you can take the following steps:
+Check if the IP address of the server you're sending emails from is listed on the SpamCop blocklist. If it is, resolve the issue with the SpamCop.
+
+Ensure that your email server is properly configured and not an open relay.
+
+Implement email sending best practices such as using authentication mechanisms and a reputable email service provider.
+
+Monitor your email reputation and avoid sending emails that are considered spammy.
+
+
+
+
+"
+"DKIM_SIGNED
+
+","Message has a DKIM or DK signature, not necessarily valid","This issue indicates that the message being processed has a DKIM signature attached to it. However, it does not necessarily mean that the signature is valid.
+
+To address this issue, you can:
+
+1.Verify that your DKIM signing configuration is set up correctly and the private key used for signing is valid.
+2. Make sure that the domain specified in the DKIM signature matches the domain used in the From header of the message.
+3. Check if the message is being modified in transit, as this can cause the DKIM signature to become invalid.
+
+If the DKIM signature is still invalid after verifying the above, you may need to consider using a different email service provider that provides a more secure and reliable email infrastructure, or implement additional email security measures to protect your messages."
+"DKIM_INVALID
+","DKIM or DK signature exists, but is not valid","This issue indicates that the message being processed has a DKIM signature attached, but the signature is not valid. This can occur for several reasons, including:
+
+1. Incorrect DKIM signing configuration: Make sure that your DKIM signing configuration is set up correctly and the private key used for signing is valid.
+
+2. Modifications to the message: Check if the message is being modified in transit, as this can cause the DKIM signature to become invalid.
+
+3. Mismatch between the domain specified in the DKIM signature and the domain used in the From header: Ensure that the domain specified in the DKIM signature matches the domain used in the From header of the message.
+
+4. Outdated public key in the DNS: Make sure that the public key specified in the DNS for the domain associated with the message is up-to-date and matches the private key used for signing.
+
+If you are unable to resolve the issue, you may need to consider using a different email service provider that provides a more secure and reliable email infrastructure, or implement additional email security measures to protect your messages."
+MIME_NO_TEXT,No (properly identified) text body parts,"This issue indicates that the email does not have any properly identified text body parts. To resolve this issue, the email must contain at least one text body part that is properly identified using the MIME format. This can be achieved by including a plain text version of the email in addition to any HTML or other non-text components. The plain text version should be properly formatted and properly identified as a text/plain MIME type in the email's headers."
+"KHOP_HELO_FCRDNS
+
+",Relay HELO differs from its IP's reverse DNS,"This issue indicates that the hostname provided in the HELO/EHLO command of an email differs from the reverse DNS (PTR) record of the IP address that the email is coming from. This can indicate a misconfigured mail server or an attempt to hide the true identity of the sender by using a false hostname in the HELO/EHLO command.
+
+To resolve this issue, the mail server's administrator should ensure that the hostname provided in the HELO/EHLO command matches the reverse DNS record of the IP address that the mail server is using to send emails. If the reverse DNS record is incorrect, it should be corrected to match the hostname provided in the HELO/EHLO command. In some cases, the issue may also be resolved by configuring the mail server to use a different hostname in the HELO/EHLO command that does match the reverse DNS record of the IP address."
+TVD_SPACE_RATIO,,
+0.0 UNPARSEABLE_RELAY          ,Informational: message has unparseable relay line,"This issue indicates that the relay line in the email headers is unparseable or has an incorrect format. The relay line is used by SpamAssassin to identify the origin and routing of the email message, and an unparseable relay line can cause SpamAssassin to incorrectly evaluate the message's spam score.
+
+To resolve this issue, the administrator of the mail server that is sending the email should ensure that the relay line is properly formatted and includes all required information, such as the originating IP address, hostname, and date/time stamp. The format of the relay line should comply with the standard format for Received headers as defined in the Internet Message Format (RFC 5322). If the issue persists, the administrator should consult the documentation for their mail server software to determine the correct format for the relay line."

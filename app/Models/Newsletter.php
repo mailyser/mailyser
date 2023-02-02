@@ -125,4 +125,22 @@ class Newsletter extends Model
         }
         return false;
     }
+    
+    public function getSpamInsights(){
+        $insights = [];
+        if (($open = fopen(storage_path() . "/spam-insights.csv", "r")) !== FALSE) {
+            
+            
+            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+                
+                $insights[] = $data;
+                
+            }
+            
+            
+            fclose($open);
+            
+        }
+        return $insights;
+    }
 }

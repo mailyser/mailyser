@@ -77,6 +77,10 @@
                  $ruleIndex++;
              }
          } 
+         
+         $spamInsights = $record->getSpamInsights();
+         var_dump($spamInsights);
+         die;
      ?>
 
     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
