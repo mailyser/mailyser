@@ -169,7 +169,7 @@
 						<div class="flex items-center justify-between gap-8">
 							<h2
 								class="text-xl font-semibold tracking-tight filament-card-heading">
-								Insight Report</h2>
+								AI Insight Report</h2>
 							<a style="color: rgb(99 102 241);" id="toggle-insight-report" href="javascript: toggleInsightReport();">Show Insight Report</a>
 						</div>
 
