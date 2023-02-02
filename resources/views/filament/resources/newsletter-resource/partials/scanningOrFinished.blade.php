@@ -165,6 +165,21 @@
 								</tbody>
 							</table>
 						</div>
+						 
+						
+						<div></div>
+					</div>
+				</div>
+
+
+			</div>
+			
+			<div
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+
+
+				<div class="space-y-2">
+					<div class="px-4 py-2 space-y-4">
 						
 						<div class="flex items-center justify-between gap-8">
 							<h2
