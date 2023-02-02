@@ -131,7 +131,7 @@ class Newsletter extends Model
         if (($open = fopen(storage_path() . "/spam-insights.csv", "r")) !== FALSE) {
             
             
-            while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+            while (($data = fgetcsv($open)) !== FALSE) {
                 
                 $insights[] = $data;
                 
