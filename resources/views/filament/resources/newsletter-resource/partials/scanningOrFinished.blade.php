@@ -174,6 +174,49 @@
 
 			</div>
 			
+			<div
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+
+
+				<div class="space-y-2">
+					<div class="px-4 py-2 space-y-4">
+						
+						<div class="flex items-center justify-between gap-8">
+							<h2
+								class="text-xl font-semibold tracking-tight filament-card-heading">
+								AI Insight Report</h2>
+							<a style="color: rgb(99 102 241);" id="toggle-insight-report" href="javascript: toggleInsightReport();">Show Insight Report</a>
+						</div>
+
+						<div aria-hidden="true"
+							class="filament-hr border-t dark:border-gray-700" id="insight-report" style="display: none;">
+							 
+							<table class='score-report'>
+								<thead>
+									<tr>
+										<th>Rule</th>
+ 										<th>Insights</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach($matchingInsights as $matchingInsight) {
+									    ?>
+									    <tr>
+  									    	<td><b> <?php echo $matchingInsight['rule']?></b></td>
+ 									    	<td><?php echo $matchingInsight['insights']?></td>
+									    </tr>
+									    <?php 
+									}?>
+								</tbody>
+							</table>
+						</div>
+						
+						<div></div>
+					</div>
+				</div>
+
+
+			</div>
 		</div>
 	</div>
   <?php }?>
