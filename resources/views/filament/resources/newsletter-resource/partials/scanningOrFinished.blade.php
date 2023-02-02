@@ -175,7 +175,7 @@
 			</div>
 			
 			<div
-				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800" style="margin-top: 20px;">
 
 
 				<div class="space-y-2">
