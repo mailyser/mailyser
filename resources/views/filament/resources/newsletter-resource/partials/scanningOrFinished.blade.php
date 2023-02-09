@@ -262,13 +262,15 @@
 			   {strokeStyle: "#7FFF00", min: -5, max: 0}, // Green
  			],
 		 };
- 
+
+   		<?php   if($newsletterScore) { ?>
 		 var target = document.getElementById('gauge'); // your canvas element
 		 gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
 		 gauge.maxValue = 10; // set max gauge value
 		 gauge.minValue = -5;  // Prefer setter over gauge.minValue = 0
 		 gauge.animationSpeed = 32; // set animation speed (32 is default value)
 		 gauge.set(<?php echo ($newsletterScore->spam_score)?> ); // set actual value
+		 <?php }?>
 	}
   </script>
   <style>
