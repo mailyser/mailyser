@@ -38,9 +38,9 @@
      if($record->has_mail_tester == 1) {
      ?>
      
-     <div>
-     	 <iframe src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>" style="width: 100%;height: 800px;margin-top: 10px;"></iframe>
-     </div>
+<!--      <div> -->
+     	 <iframe src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>" style="border: none; width: 100%;height: 800px;margin-top: 10px;"></iframe>
+<!--      </div> -->
      
      <?php 
          
