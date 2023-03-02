@@ -59,8 +59,13 @@ class ViewNewsletter extends ViewRecord
 
         $csv = Writer::createFromFileObject(new SplTempFileObject);
         $csv->insertOne(Newsletter::audienceFields());
+        if($this->record->has_mail_tester) {
+            $csv->insertOne(['mail','receiver',$this->record->getMailTestUniqueEmail() ]);
+        }
+        
         $csv->insertAll($this->record->getOrGenerateAudience());
 
+        
         if ($this->record->status === NewsletterStatusEnum::Draft->name) {
             $this->record->setStatus(NewsletterStatusEnum::Waiting->name);
         }
