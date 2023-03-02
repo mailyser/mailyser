@@ -39,7 +39,7 @@
      ?>
      
      <div>
-     	 <iframe src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>" style="width: 100%;height: 800px;margin-top: 10px;"/>
+     	 <iframe src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>" style="width: 100%;height: 800px;margin-top: 10px;"></iframe>
      </div>
      
      <?php 
