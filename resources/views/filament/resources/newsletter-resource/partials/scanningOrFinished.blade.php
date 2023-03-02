@@ -35,7 +35,16 @@
      <?php 
      $newsletterScore = $record->processSpamScore();
      $color = '';
-     if($newsletterScore) { 
+     if($record->has_mail_tester == 1) {
+     ?>
+     
+     <div>
+     	 <iframe src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>" style="width: 100%;height: 800px;margin-top: 10px;"/>
+     </div>
+     
+     <?php 
+         
+     }else if($newsletterScore) { 
          /*
          5+ - Do not send
          2-4.99 - Send with Caution
