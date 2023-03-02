@@ -55,12 +55,12 @@ class Newsletter extends Model
     }
 
     public function getMailTesterIdentifier() {
-        return 'accounts@mailyser.io-newsletter'.$this->id;
+        return 'mailyser-newsletter'.$this->id;
             
     }
     
     public function getMailTestUniqueEmail() {
-        return $this->getMailTesterIdentifier().'@mail-tester.com';
+        return $this->getMailTesterIdentifier().'@srv1.mail-tester.com';
     }
     
     public function getOrGenerateAudience(): array
