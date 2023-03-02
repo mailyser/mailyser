@@ -39,7 +39,7 @@
      ?>
      
 <!--      <div> -->
-     	 <iframe src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>" style="border: none; width: 100%;height: 800px;margin-top: 10px;"></iframe>
+     	 <iframe class='tester' src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>"></iframe>
 <!--      </div> -->
      
      <?php 
@@ -290,6 +290,13 @@
       border: 1px solid;
       font-size: 14px;
       padding: 5px;
+    }
+    iframe.tester  {
+	   border-radius: 10px; 
+	   border: none; 
+	   width: 100%; 
+	   height: 800px; 
+	   margin-top: 10px;
     }
   </style>
 </div>
