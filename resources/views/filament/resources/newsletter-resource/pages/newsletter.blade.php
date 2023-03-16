@@ -12,6 +12,7 @@
         @case(\App\Enums\NewsletterStatusEnum::Scanning->name)
         @case(\App\Enums\NewsletterStatusEnum::Finished->name)
             @include('filament.resources.newsletter-resource.partials.scanningOrFinished')
+            @include('filament.resources.newsletter-resource.partials.mailtest')
             @break
     @endswitch
 </x-filament::page>
