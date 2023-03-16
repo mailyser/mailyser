@@ -36,11 +36,120 @@
      $newsletterScore = $record->processSpamScore();
      $color = '';
      if($record->has_mail_tester == 1) {
+         
+         $mailTestJson = $record->getMailtesterData();
+         
+         $mailtestScore = 10 + $mailTestJson['mark'];
+         
+         //var_dump($mailtestScore);
+         
+         $currentScore = $mailTestJson['spamAssassin']['score'];
+         
+          
+         if($currentScore >= 5) {
+             $spamScoreVal = 'Do not send';
+             $color = '#FF0000'; //red
+         }else if($currentScore > 2 && $currentScore < 5 ) {
+             $spamScoreVal = 'Send with Caution';
+             $color = '#ffc800'; //orange
+         }else if($currentScore > 0 && $currentScore < 2 ) {
+             $spamScoreVal = 'Good';
+             $color = '#0000FF'; //blue
+             
+         }else if($currentScore   < 0 ) {
+             $spamScoreVal = 'Excellent';
+             $color = '#7FFF00'; //green
+             
+         } 
      ?>
      
 <!--      <div> -->
      	 <iframe class='tester' src="https://www.mail-tester.com/<?php echo $record->getMailTesterIdentifier()?>"></iframe>
 <!--      </div> -->
+      
+     
+     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
+
+
+		<div  
+			class="filament-widget col-span-1 filament-widgets-chart-widget">
+			<div
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+
+
+				<div class="space-y-2">
+					<div class="px-4 py-2 space-y-4">
+						<div class="flex items-center justify-between gap-8">
+							<h2
+								class="text-xl font-semibold tracking-tight filament-card-heading">
+								Mailyser Score</h2>
+
+						</div>
+
+						<div aria-hidden="true"
+							class="filament-hr border-t dark:border-gray-700" style="text-align: center;">
+					
+							 
+							
+							<h1 style="font-size: 50px;">
+							<?php 
+							echo ($mailtestScore).'/10'
+							?> 
+							</h1>
+ 							
+							
+							</div>
+
+						<div></div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+		<div   class="filament-widget col-span-1 filament-widgets-chart-widget" >
+			<div
+				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+
+
+				<div class="space-y-2">
+					<div class="px-4 py-2 space-y-4">
+						<div class="flex items-center justify-between gap-8">
+							<h2
+								class="text-xl font-semibold tracking-tight filament-card-heading">
+								Spam Assasin Score</h2>
+							<a style="color: rgb(99 102 241);" id="toggle-report" href="javascript: toggleReport();">Show Report</a>
+						</div>
+
+						<div aria-hidden="true"
+							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: none;">
+							 
+							 <canvas id="gauge" style="margin: auto;"></canvas>
+							
+							<h1 style="font-size: 50px;"><?php 
+							echo ($currentScore)
+							?> 
+							</h1>
+							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
+							
+							
+							</div>
+						</div>
+						 
+						
+						<div></div>
+					</div>
+				</div>
+
+
+			</div>
+			
+			
+		</div>
+	</div>
+	
      
      <?php 
          
