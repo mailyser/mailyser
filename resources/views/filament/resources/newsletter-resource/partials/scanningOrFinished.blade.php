@@ -75,7 +75,7 @@
      	 <!--      </div> -->
       
 	
-	<div style="text-align: center; margin-top: 10px;"> 
+	<div style="text-align: center; margin-top: 10px; margin-bottom: 10px;"> 
          <x-filament::button type="button" class="spam-analysis analysis btn-active">
               Spam Analysis
         </x-filament::button>
@@ -86,7 +86,6 @@
     	 
 	</div>
 	<div class="email-analysis-section filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="display: none;">
-		email analysis
 		<div class="filament-widget col-span-1">
 			<div class="accordion" id="mailtest-errors">
         			<?php 
@@ -708,7 +707,7 @@ pre {
 	}
 	function showSpamAnalysis() {
 		$('.analysis').removeClass('btn-active');
-		$('spam-analysis').addClass('btn-active');
+		$('.spam-analysis').addClass('btn-active');
 		$('.spam-analysis-section').show();
 		$('.email-analysis-section').hide();
 		$('.filament-widgets-chart-widget').show();
@@ -777,7 +776,7 @@ pre {
     }
     iframe.tester  {
 	   border-radius: 10px; 
-	   border: none; 
+	   border: 1px solid #dedede; 
 	   width: 100%; 
 	   height: 800px; 
 	   margin-top: 10px;
