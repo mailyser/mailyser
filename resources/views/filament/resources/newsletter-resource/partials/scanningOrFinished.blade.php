@@ -75,193 +75,198 @@
      	 <!--      </div> -->
       
 	
-	<div> 
-         <x-filament::button type="button" class="spam-analysis">
+	<div style="text-align: center;"> 
+         <x-filament::button type="button" class="spam-analysis analysis btn-active">
               Spam Analysis
         </x-filament::button>
         
-         <x-filament::button type="button" class="email-analysis">
+         <x-filament::button type="button" class="email-analysis analysis">
             Email Analysis
         </x-filament::button>
     	 
 	</div>
-	
-     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
-
-
-		<div  
-			class="filament-widget col-span-1 filament-widgets-chart-widget">
-			<div
-				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
-
-
-				<div class="space-y-2">
-					<div class="px-4 py-2 space-y-4">
-						<div class="flex items-center justify-between gap-8">
-							<h2
-								class="text-xl font-semibold tracking-tight filament-card-heading">
-								Mailyser Score</h2>
-
-						</div>
-
-						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700" style="text-align: center;">
-					
-							 
-							
-							<h1 style="font-size: 50px;">
-							<?php 
-							echo ($mailtestScore).'/10'
-							?> 
-							</h1>
- 							
-							
-							</div>
-
-						<div></div>
-					</div>
-				</div>
-
-
-			</div>
-		</div>
-
-
-		<div   class="filament-widget col-span-1 filament-widgets-chart-widget" >
-			<div
-				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
-
-
-				<div class="space-y-2">
-					<div class="px-4 py-2 space-y-4">
-						<div class="flex items-center justify-between gap-8">
-							<h2
-								class="text-xl font-semibold tracking-tight filament-card-heading">
-								Spam Assasin Score</h2>
-							<a style="color: rgb(99 102 241);" id="toggle-report" href="javascript: toggleReport();">Hide Report</a>
-						</div>
-
-						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: block; text-align: none;">
-							 
-							 <canvas id="gauge" style="margin: auto;"></canvas>
-							
-							<h1 style="font-size: 50px;"><?php 
-							echo ($currentScore)
-							?> 
-							</h1>
-							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
-							
-							
-							</div>
-						</div>
-						 
-						
-						<div></div>
-					</div>
-				</div>
-
-
-			</div>
-			
-			<div class="filament-widget col-span-2">
-                <div class="accordion" id="mailtest">
-    			
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                          <button class="accordion-button collapsed <?php echo $mailTestJson['spamAssassin']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpamIssues" aria-expanded="false" aria-controls="collapseSpamIssues">
-                            Fix your Spam Issues
-                          </button>
-                        </h2>
-                        <div id="collapseSpamIssues" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
-                          <div class="accordion-body">
-                            <?php echo $mailTestJson['spamAssassin']['description']?>
-                            <hr>
-                              <table class='table'>
-                             	<?php foreach($mailTestJson['spamAssassin']['rules'] as $rule) {
-                             	    ?>
-                             	    <tr>
-                             	    	<td class="text-center <?php echo $rule['status']?>"><?php echo $rule['score']?></td>
-                             	    	<td><?php echo $rule['code']?></td>
-                             	    	<td>
-                             	    	<?php echo $rule['description']?><br />
-                             	    	<b><?php echo $rule['solution']?></b>
-                             	    	</td>
-                             	    </tr>
-                             	    <?php 
-                             	}?>
-                             </table>
-                              <hr>
-                             <?php echo $mailTestJson['signature']['title']?> <br />
-                             <?php echo $mailTestJson['signature']['description']?> <br />
-                             <hr>
-                             
-                             <div class="accordion" id="signatureData">
-                                    <?php foreach($mailTestJson['signature']['subtests'] as $titleName => $testInfo) {
-                                        $accordionTitle = "subtest_".$titleName;
-                                     ?>
-                                      <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingOne-1">
-                                          <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
-                                            <?php echo $testInfo['title']?>
-                                          </button>
-                                        </h2>
-                                        <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#signatureData">
-                                          <div class="accordion-body">
-											<?php echo $testInfo['description']?>
-											<hr>
-											<?php echo $testInfo['messages']?> 
-                                          </div>
-                                        </div>
-                                      </div>
-                                     
-                                     <?php 
-                                 }?>
-                             </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                          <button class="accordion-button collapsed <?php echo $mailTestJson['links']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
-                            <?php echo $mailTestJson['links']['title'];?>
-                          </button>
-                        </h2>
-                        <div id="collapseLinks" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
-                          <div class="accordion-body test-result">
-                            <?php echo $mailTestJson['links']['description']?>
-                            <hr>
-                            <div class='result'>
-                          		<?php echo $mailTestJson['links']['messages']?>
-                          	</div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                          <button class="accordion-button collapsed <?php echo $mailTestJson['blacklists']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlacklists" aria-expanded="false" aria-controls="collapseBlacklists">
-                             <?php echo $mailTestJson['blacklists']['title'];?>
-                          </button>
-                        </h2>
-                        <div id="collapseBlacklists" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
-                          <div class="accordion-body">
-                            <?php echo $mailTestJson['blacklists']['description']?>
-                            <hr>
-                            <div class='result'>
-                          		<?php echo $mailTestJson['blacklists']['messages']?>
-                          	</div>
-                          </div>
-                        </div>
-                      </div>
-                </div>
-            </div>
-			
-		</div>
+	<div class="email-analysis-section" style="display: none;">
+		email analysis
 	</div>
+	<div class="spam-analysis-section">
 	
-     
+	
+         <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
+    
+    
+    		<div  
+    			class="filament-widget col-span-1 filament-widgets-chart-widget">
+    			<div
+    				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+    
+    
+    				<div class="space-y-2">
+    					<div class="px-4 py-2 space-y-4">
+    						<div class="flex items-center justify-between gap-8">
+    							<h2
+    								class="text-xl font-semibold tracking-tight filament-card-heading">
+    								Mailyser Score</h2>
+    
+    						</div>
+    
+    						<div aria-hidden="true"
+    							class="filament-hr border-t dark:border-gray-700" style="text-align: center;">
+    					
+    							 
+    							
+    							<h1 style="font-size: 50px;">
+    							<?php 
+    							echo ($mailtestScore).'/10'
+    							?> 
+    							</h1>
+     							
+    							
+    							</div>
+    
+    						<div></div>
+    					</div>
+    				</div>
+    
+    
+    			</div>
+    		</div>
+    
+    
+    		<div   class="filament-widget col-span-1 filament-widgets-chart-widget" >
+    			<div
+    				class="p-2 space-y-2 bg-white rounded-xl shadow dark:border-gray-600 dark:bg-gray-800">
+    
+    
+    				<div class="space-y-2">
+    					<div class="px-4 py-2 space-y-4">
+    						<div class="flex items-center justify-between gap-8">
+    							<h2
+    								class="text-xl font-semibold tracking-tight filament-card-heading">
+    								Spam Assasin Score</h2>
+    							<a style="color: rgb(99 102 241);" id="toggle-report" href="javascript: toggleReport();">Hide Report</a>
+    						</div>
+    
+    						<div aria-hidden="true"
+    							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: block; text-align: none;">
+    							 
+    							 <canvas id="gauge" style="margin: auto;"></canvas>
+    							
+    							<h1 style="font-size: 50px;"><?php 
+    							echo ($currentScore)
+    							?> 
+    							</h1>
+    							<h3 style="font-size: 34px; <?php echo $color != '' ? 'color: '.$color: ''?>"><?php echo $spamScoreVal?></h3>
+    							
+    							
+    							</div>
+    						</div>
+    						 
+    						
+    						<div></div>
+    					</div>
+    				</div>
+    
+    
+    			</div>
+    			
+    			<div class="filament-widget col-span-2">
+                    <div class="accordion" id="mailtest">
+        			
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                              <button class="accordion-button collapsed <?php echo $mailTestJson['spamAssassin']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpamIssues" aria-expanded="false" aria-controls="collapseSpamIssues">
+                                Fix your Spam Issues
+                              </button>
+                            </h2>
+                            <div id="collapseSpamIssues" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
+                              <div class="accordion-body">
+                                <?php echo $mailTestJson['spamAssassin']['description']?>
+                                <hr>
+                                  <table class='table'>
+                                 	<?php foreach($mailTestJson['spamAssassin']['rules'] as $rule) {
+                                 	    ?>
+                                 	    <tr>
+                                 	    	<td class="text-center <?php echo $rule['status']?>"><?php echo $rule['score']?></td>
+                                 	    	<td><?php echo $rule['code']?></td>
+                                 	    	<td>
+                                 	    	<?php echo $rule['description']?><br />
+                                 	    	<b><?php echo $rule['solution']?></b>
+                                 	    	</td>
+                                 	    </tr>
+                                 	    <?php 
+                                 	}?>
+                                 </table>
+                                  <hr>
+                                 <?php echo $mailTestJson['signature']['title']?> <br />
+                                 <?php echo $mailTestJson['signature']['description']?> <br />
+                                 <hr>
+                                 
+                                 <div class="accordion" id="signatureData">
+                                        <?php foreach($mailTestJson['signature']['subtests'] as $titleName => $testInfo) {
+                                            $accordionTitle = "subtest_".$titleName;
+                                         ?>
+                                          <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne-1">
+                                              <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
+                                                <?php echo $testInfo['title']?>
+                                              </button>
+                                            </h2>
+                                            <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#signatureData">
+                                              <div class="accordion-body">
+    											<?php echo $testInfo['description']?>
+    											<hr>
+    											<?php echo $testInfo['messages']?> 
+                                              </div>
+                                            </div>
+                                          </div>
+                                         
+                                         <?php 
+                                     }?>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                              <button class="accordion-button collapsed <?php echo $mailTestJson['links']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
+                                <?php echo $mailTestJson['links']['title'];?>
+                              </button>
+                            </h2>
+                            <div id="collapseLinks" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
+                              <div class="accordion-body test-result">
+                                <?php echo $mailTestJson['links']['description']?>
+                                <hr>
+                                <div class='result'>
+                              		<?php echo $mailTestJson['links']['messages']?>
+                              	</div>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                              <button class="accordion-button collapsed <?php echo $mailTestJson['blacklists']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlacklists" aria-expanded="false" aria-controls="collapseBlacklists">
+                                 <?php echo $mailTestJson['blacklists']['title'];?>
+                              </button>
+                            </h2>
+                            <div id="collapseBlacklists" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
+                              <div class="accordion-body">
+                                <?php echo $mailTestJson['blacklists']['description']?>
+                                <hr>
+                                <div class='result'>
+                              		<?php echo $mailTestJson['blacklists']['messages']?>
+                              	</div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+    			
+    		</div>
+    	</div>
+	
+     </div>
      <?php 
          
      }else if($newsletterScore) { 
@@ -600,7 +605,9 @@
 .accordion-flush .accordion-item .accordion-button {
     border-radius: 0;
 }
-
+.btn-active {
+	background-color: green;
+}
   </style>
   <style> 
 
@@ -645,8 +652,24 @@ pre {
 	    $('#insight-report').toggle();
 	    $('#toggle-insight-report').html(  $('#insight-report:visible').length == 1 ? 'Hide Insight Report' : 'Show Insight Report' );
 	}
+	function showSpamAnalysis() {
+		$('.analysis').removeClass('btn-active');
+		$('spam-analysis').addClass('btn-active');
+		$('.spam-analysis-section').show();
+		$('.email-analysis-section').hide();
+		
+	}
+	function showEmailAnalysis() {
+		$('.analysis').removeClass('btn-active');
+		$('.email-analysis').addClass('btn-active');
+		$('.spam-analysis-section').hide();
+		$('.email-analysis-section').show();
+		
+	}
    $( document ).ready(function() {
 	    setupGauge();
+	    $('.spam-analysis').on('click', showSpamAnalysis);
+	    $('.email-analysis').on('click', showEmailAnalysis);
 	});
    var gauge = false;
 	function setupGauge() {
