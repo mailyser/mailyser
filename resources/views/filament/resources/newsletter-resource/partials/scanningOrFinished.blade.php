@@ -89,9 +89,7 @@
 		email analysis
 	</div>
 	<div class="spam-analysis-section">
-	
-	
-         <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
+	     <div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="margin-top: 20px;">
     
     
     		<div  
@@ -454,6 +452,7 @@
 		</div>
 	</div>
   <?php }?>
+  
   <style>
 	
 	@charset "UTF-8"; /*!
@@ -657,14 +656,14 @@ pre {
 		$('spam-analysis').addClass('btn-active');
 		$('.spam-analysis-section').show();
 		$('.email-analysis-section').hide();
-		
+		$('.filament-widgets-chart-widget').show();
 	}
 	function showEmailAnalysis() {
 		$('.analysis').removeClass('btn-active');
 		$('.email-analysis').addClass('btn-active');
 		$('.spam-analysis-section').hide();
 		$('.email-analysis-section').show();
-		
+		$('.filament-widgets-chart-widget').hide();
 	}
    $( document ).ready(function() {
 	    setupGauge();
