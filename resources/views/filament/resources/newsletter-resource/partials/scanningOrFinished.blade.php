@@ -120,11 +120,11 @@
 							<h2
 								class="text-xl font-semibold tracking-tight filament-card-heading">
 								Spam Assasin Score</h2>
-							<a style="color: rgb(99 102 241);" id="toggle-report" href="javascript: toggleReport();">Show Report</a>
+							<a style="color: rgb(99 102 241);" id="toggle-report" href="javascript: toggleReport();">Hide Report</a>
 						</div>
 
 						<div aria-hidden="true"
-							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: none;">
+							class="filament-hr border-t dark:border-gray-700" id="spam-report" style="display: block; text-align: none;">
 							 
 							 <canvas id="gauge" style="margin: auto;"></canvas>
 							
@@ -146,6 +146,99 @@
 
 			</div>
 			
+			<div>
+                <div class="accordion" id="mailtest">
+    			
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                          <button class="accordion-button collapsed <?php echo $mailTestJson['spamAssassin']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpamIssues" aria-expanded="false" aria-controls="collapseSpamIssues">
+                            Fix your Spam Issues
+                          </button>
+                        </h2>
+                        <div id="collapseSpamIssues" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
+                          <div class="accordion-body">
+                            <?php echo $mailTestJson['spamAssassin']['description']?>
+                            <hr>
+                              <table class='table'>
+                             	<?php foreach($mailTestJson['spamAssassin']['rules'] as $rule) {
+                             	    ?>
+                             	    <tr>
+                             	    	<td class="text-center <?php echo $rule['status']?>"><?php echo $rule['score']?></td>
+                             	    	<td><?php echo $rule['code']?></td>
+                             	    	<td>
+                             	    	<?php echo $rule['description']?><br />
+                             	    	<b><?php echo $rule['solution']?></b>
+                             	    	</td>
+                             	    </tr>
+                             	    <?php 
+                             	}?>
+                             </table>
+                              <hr>
+                             <?php echo $mailTestJson['signature']['title']?> <br />
+                             <?php echo $mailTestJson['signature']['description']?> <br />
+                             <hr>
+                             
+                             <div class="accordion" id="signatureData">
+                                    <?php foreach($mailTestJson['signature']['subtests'] as $titleName => $testInfo) {
+                                        $accordionTitle = "subtest_".$titleName;
+                                     ?>
+                                      <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne-1">
+                                          <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
+                                            <?php echo $testInfo['title']?>
+                                          </button>
+                                        </h2>
+                                        <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#signatureData">
+                                          <div class="accordion-body">
+											<?php echo $testInfo['description']?>
+											<hr>
+											<?php echo $testInfo['messages']?> 
+                                          </div>
+                                        </div>
+                                      </div>
+                                     
+                                     <?php 
+                                 }?>
+                             </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                          <button class="accordion-button collapsed <?php echo $mailTestJson['links']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
+                            <?php echo $mailTestJson['links']['title'];?>
+                          </button>
+                        </h2>
+                        <div id="collapseLinks" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
+                          <div class="accordion-body test-result">
+                            <?php echo $mailTestJson['links']['description']?>
+                            <hr>
+                            <div class='result'>
+                          		<?php echo $mailTestJson['links']['messages']?>
+                          	</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                          <button class="accordion-button collapsed <?php echo $mailTestJson['blacklists']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlacklists" aria-expanded="false" aria-controls="collapseBlacklists">
+                             <?php echo $mailTestJson['blacklists']['title'];?>
+                          </button>
+                        </h2>
+                        <div id="collapseBlacklists" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
+                          <div class="accordion-body">
+                            <?php echo $mailTestJson['blacklists']['description']?>
+                            <hr>
+                            <div class='result'>
+                          		<?php echo $mailTestJson['blacklists']['messages']?>
+                          	</div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
 			
 		</div>
 	</div>
@@ -338,6 +431,41 @@
 		</div>
 	</div>
   <?php }?>
+  
+  <style> 
+
+.status-neutral { color: #cccccc; font-weight: bold;}
+.status-failure { color: #CB5D65; font-weight: bold;}
+.status-warning { color: #F9AE4B; font-weight: bold;}
+.status-success { color: #91B864; font-weight: bold;}
+.text-center {
+  text-align: center !important;
+}
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+pre {
+  border-left: 2px solid #dee2e6;
+  padding-left: 1rem;
+  margin-left: 1rem;
+}
+
+.accordion-button.success {
+	background-color: #91B864;
+}
+
+.accordion-button.warning {
+	background-color: #F9AE4B;
+}
+.test-result .result {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+}
+	</style>
+	
    <script type="text/javascript">
    function toggleReport() {
 	    $('#spam-report').toggle();
