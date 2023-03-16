@@ -85,7 +85,7 @@
         </x-filament::button>
     	 
 	</div>
-	<div class="email-analysis-section" style="display: none;">
+	<div class="email-analysis-section filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="display: none;">
 		email analysis
 		<div class="filament-widget col-span-1">
 			<div class="accordion" id="mailtest-errors">
