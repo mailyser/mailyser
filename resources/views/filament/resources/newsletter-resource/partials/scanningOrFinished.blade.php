@@ -264,10 +264,12 @@
                                               </button>
                                             </h2>
                                             <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#signatureData">
-                                              <div class="accordion-body">
+                                              <div class="accordion-body test-result">
     											<?php echo $testInfo['description']?>
     											<hr>
-    											<?php echo $testInfo['messages']?> 
+    											 <div class='result'>
+    												<?php echo $testInfo['messages']?> 
+    											</div>
                                               </div>
                                             </div>
                                           </div>
