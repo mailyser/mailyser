@@ -226,8 +226,9 @@
         			
                           <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
-                              <button class="accordion-button collapsed <?php echo $mailTestJson['spamAssassin']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpamIssues" aria-expanded="false" aria-controls="collapseSpamIssues">
-                                Fix your Spam Issues
+                              <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpamIssues" aria-expanded="false" aria-controls="collapseSpamIssues">
+                                Fix your Spam Issues 
+                                <i class="<?php echo $mailTestJson['spamAssassin']['statusClass']?>"></i>
                               </button>
                             </h2>
                             <div id="collapseSpamIssues" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
@@ -259,8 +260,10 @@
                                          ?>
                                           <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne-1">
-                                              <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
+                                              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
                                                 <?php echo $testInfo['title']?>
+                                                
+                                                <i class="<?php echo $testInfo['statusClass']?>"></i>
                                               </button>
                                             </h2>
                                             <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#signatureData">
@@ -283,8 +286,9 @@
                           
                           <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
-                              <button class="accordion-button collapsed <?php echo $mailTestJson['links']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
+                              <button class="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" aria-expanded="false" aria-controls="collapseLinks">
                                 <?php echo $mailTestJson['links']['title'];?>
+                              	<i class="<?php echo $mailTestJson['links']['statusClass']?>"></i>
                               </button>
                             </h2>
                             <div id="collapseLinks" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
@@ -300,8 +304,9 @@
                           
                           <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
-                              <button class="accordion-button collapsed <?php echo $mailTestJson['blacklists']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlacklists" aria-expanded="false" aria-controls="collapseBlacklists">
+                              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBlacklists" aria-expanded="false" aria-controls="collapseBlacklists">
                                  <?php echo $mailTestJson['blacklists']['title'];?>
+                              	<i class="<?php echo $mailTestJson['blacklists']['statusClass']?>"></i>
                               </button>
                             </h2>
                             <div id="collapseBlacklists" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest">
@@ -695,6 +700,42 @@ pre {
   padding-top: 1rem;
   padding-bottom: 1rem;
   overflow-x: auto;
+}
+.status.neutral {
+  background-color: #cccccc;
+}
+.status.failure {
+  background-color: #CB5D65;
+}
+.status.warning {
+  background-color: #F9AE4B;
+}
+.status.success {
+  background-color: #91B864;
+} 
+.icon-check  {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 22px;
+    height: 22px;
+    border: 2px solid transparent;
+    border-radius: 100px
+}
+.icon-check::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    left: 3px;
+    top: -1px;
+    width: 6px;
+    height: 10px;
+    border-width: 0 2px 2px 0;
+    border-style: solid;
+    transform-origin: bottom left;
+    transform: rotate(45deg)
 }
 	</style>
 	
