@@ -86,7 +86,7 @@
     	 
 	</div>
 	<div class="email-analysis-section ">
-		<div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6">
+		<div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="display: none;">
     		<div class="filament-widget col-span-1">
     			<div class="accordion" id="mailtest-errors">
             			<?php 
@@ -115,8 +115,9 @@
                                              ?>
                                               <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingOne-1">
-                                                  <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
+                                                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
                                                     <?php echo $testInfo['title']?>
+                                                    <i class="status <?php echo $testInfo['statusClass']?>"></i>
                                                   </button>
                                                 </h2>
                                                 <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#body_errors_data">
