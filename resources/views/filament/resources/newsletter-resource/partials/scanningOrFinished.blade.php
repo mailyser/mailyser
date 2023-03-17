@@ -85,61 +85,63 @@
         </x-filament::button>
     	 
 	</div>
-	<div class="email-analysis-section filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6" style="display: block;">
-		<div class="filament-widget col-span-1">
-			<div class="accordion" id="mailtest-errors">
-        			<?php 
-        			$accordionTitle = "body_errors";
-        			?>
-        			      <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingTwo">
-                              <button class="accordion-button collapsed <?php echo $mailTestJson['body']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="false" aria-controls="<?php echo $accordionTitle?>">
-                                <?php echo $mailTestJson['body']['title'];?>
-                              </button>
-                            </h2>
-                            <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest-errors">
-                              <div class="accordion-body">
-                                <?php echo $mailTestJson['body']['description']?>
-                                <hr> 
-                              		<?php echo $mailTestJson['body']['messages']?>
-                              	 
-                              	 
-                              	  <div class="accordion" id="body_errors_data">
-                                        <?php foreach($mailTestJson['body']['subtests'] as $titleName => $testInfo) {
-                                            if($titleName == 'textToHtmlRatio')
-                                                continue;
-                                            
-                                            $accordionTitle = "body_errors_subtest_".$titleName;
-                                         ?>
-                                          <div class="accordion-item">
-                                            <h2 class="accordion-header" id="headingOne-1">
-                                              <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
-                                                <?php echo $testInfo['title']?>
-                                              </button>
-                                            </h2>
-                                            <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#body_errors_data">
-                                              <div class="accordion-body test-result">
-    											<?php echo $testInfo['description']?>
-    											<hr>
-    											 <div class='result'>
-    											<?php echo $testInfo['messages']?> 
-    											</div>
+	<div class="email-analysis-section ">
+		<div class="filament-widgets-container grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-8 mb-6">
+    		<div class="filament-widget col-span-1">
+    			<div class="accordion" id="mailtest-errors">
+            			<?php 
+            			$accordionTitle = "body_errors";
+            			?>
+            			      <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                  <button class="accordion-button collapsed <?php echo $mailTestJson['body']['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="false" aria-controls="<?php echo $accordionTitle?>">
+                                    <?php echo $mailTestJson['body']['title'];?>
+                                  </button>
+                                </h2>
+                                <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#mailtest-errors">
+                                  <div class="accordion-body">
+                                    <?php echo $mailTestJson['body']['description']?>
+                                    <hr> 
+                                  		<?php echo $mailTestJson['body']['messages']?>
+                                  	 
+                                  	 
+                                  	  <div class="accordion" id="body_errors_data">
+                                            <?php foreach($mailTestJson['body']['subtests'] as $titleName => $testInfo) {
+                                                if($titleName == 'textToHtmlRatio')
+                                                    continue;
+                                                
+                                                $accordionTitle = "body_errors_subtest_".$titleName;
+                                             ?>
+                                              <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingOne-1">
+                                                  <button class="accordion-button <?php echo $testInfo['statusClass']?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
+                                                    <?php echo $testInfo['title']?>
+                                                  </button>
+                                                </h2>
+                                                <div id="<?php echo $accordionTitle?>" class="accordion-collapse collapse" aria-labelledby="headingOne-1" data-bs-parent="#body_errors_data">
+                                                  <div class="accordion-body test-result">
+        											<?php echo $testInfo['description']?>
+        											<hr>
+        											 <div class='result'>
+        											<?php echo $testInfo['messages']?> 
+        											</div>
+                                                  </div>
+                                                </div>
                                               </div>
-                                            </div>
-                                          </div>
-                                         
-                                         <?php 
-                                     }?>
-                                 </div>
-                                 
-                              </div>
-                            </div>
-                          </div> 
-                    </div>
-		</div>
-		<div class="filament-widget col-span-1">
-				 <iframe class='tester' src="/view-html.php?id=<?php echo $record->getMailTesterIdentifier()?>"></iframe>
-				
+                                             
+                                             <?php 
+                                         }?>
+                                     </div>
+                                     
+                                  </div>
+                                </div>
+                              </div> 
+                        </div>
+    		</div>
+    		<div class="filament-widget col-span-1">
+    				 <iframe class='tester' src="/view-html.php?id=<?php echo $record->getMailTesterIdentifier()?>"></iframe>
+    				
+    		</div>
 		</div>
 	</div>
 	<div class="spam-analysis-section">
