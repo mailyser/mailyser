@@ -94,7 +94,7 @@
             			?>
             			      <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingTwo">
-                                  <button class="accordion-button collapse" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="false" aria-controls="<?php echo $accordionTitle?>">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="false" aria-controls="<?php echo $accordionTitle?>">
                                     <?php echo $mailTestJson['body']['title'];?>
                                     <i class="status <?php echo $mailTestJson['body']['statusClass']?>"></i>
                                   </button>
@@ -115,7 +115,7 @@
                                              ?>
                                               <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingOne-1">
-                                                  <button class="accordion-button collapse" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
+                                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $accordionTitle?>" aria-expanded="true" aria-controls="<?php echo $accordionTitle?>">
                                                     <?php echo $testInfo['title']?>
                                                     <i class="status <?php echo $testInfo['statusClass']?>"></i>
                                                   </button>
