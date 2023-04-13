@@ -38,9 +38,19 @@
      <?php 
      $newsletterScore = $record->processSpamScore();
      $color = '';
+     
+     $hasMailtester = false;
+     $mailTestJson = false;
      if($record->has_mail_tester == 1) {
-         
          $mailTestJson = $record->getMailtesterData();
+      
+         if(isset($mailTestJson['status']) && $mailTestJson['status']) {
+             $hasMailtester = true;
+         }
+     }
+     
+     if($hasMailtester) {
+         
          
          $mailtestScore = 10 + $mailTestJson['mark'];
          

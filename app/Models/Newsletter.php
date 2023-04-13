@@ -177,10 +177,7 @@ class Newsletter extends Model
         
         // Will dump a beauty json :3
         $mailTestJson = (json_decode($result, true));
-        
-        var_dump($mailTestJson);
-        die;
-        
+         
         return $mailTestJson;
       
     }
