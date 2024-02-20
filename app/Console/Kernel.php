@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command(ScanPendingNewslettersCommand::class)->everyMinute();
+      $schedule->command(ScanPendingNewslettersCommand::class)->everyTenMinutes();
          $schedule->command(CompleteScannedNewslettersCommand::class)->everyMinute();
     }
 

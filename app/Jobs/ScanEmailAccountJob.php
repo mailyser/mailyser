@@ -53,13 +53,15 @@ class ScanEmailAccountJob implements ShouldQueue
         
         /** @var \Webklex\PHPIMAP\Folder $folder */
         foreach ($connection->getFolders(false) as $folder) {
-            $messages = $folder->query()
+            $messages = [];
+            if($this->newsletter->sender) {
+              $messages = $folder->query()
                 ->from($this->newsletter->sender->email_address)
                 ->since($this->newsletter->created_at->clone()->subDay()->format('d.m.Y'))
                 ->text($this->newsletter->keyword)
                 ->limit(1)
                 ->get();
-
+            }
             /** @var \Webklex\PHPIMAP\Message $message */
             foreach ($messages as $message) {
                 if ($message->getFolderPath() === $this->email->spam_folder) {
@@ -67,11 +69,12 @@ class ScanEmailAccountJob implements ShouldQueue
                 } else {
                     /** @var \Webklex\PHPIMAP\Folder $folder */
                     $folder = $message->getFolder();
-                    $this->landedIn = $folder->name;
+                    if($folder)
+                      $this->landedIn = $folder->name;
                 }
                 
-                $full_content = $message->header->raw.'
-'.$message->bodies['html'];
+                $html = isset($message->bodies['html']) ? $message->bodies['html'] : '';
+                $full_content = $message->header->raw.''.$html;
                 if($this->landedIn && !$hasNewsletterSpam) {
                     $newsLetterSpamScore = NewsletterSpamScore::where("newsletter_id", $this->newsletter->id)->first();
                     if(!$newsLetterSpamScore) {

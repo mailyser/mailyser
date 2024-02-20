@@ -60,6 +60,7 @@ class NewsletterResource extends Resource
                                     ->relationship('sender', 'email_address', fn ($query) => $query->where('user_id', auth()->id()))
                                     ->columnSpan(1),
                                 TextInput::make('keyword')
+                                    ->maxLength(255)
                                     ->placeholder('Thanks for reading our october 2022 newsletter!')
                                     ->helperText('Use a word or sentence present in your email template. We use this text, together with the sender address to identify the email in the mailbox. ')
                                     ->required()

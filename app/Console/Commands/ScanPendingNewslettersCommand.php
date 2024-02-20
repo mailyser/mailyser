@@ -34,10 +34,12 @@ class ScanPendingNewslettersCommand extends Command
             ->with('user')
             ->whereNull('scanning_at')
             ->where('scheduled_for', '<=', Carbon::now())
+            ->limit(5)
             ->get()
-            ->filter(fn (Newsletter $newsletter) => $newsletter->user->subscribed())
+            ->filter(fn (Newsletter $newsletter) => $newsletter->user->hasAccess())
             ->each(fn (Newsletter $newsletter) => app(ScanNewsletterAction::class)($newsletter));
 
+             
         return Command::SUCCESS;
     }
 }

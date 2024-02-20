@@ -74,16 +74,35 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         if (app()->environment('local')) {
             // return true;
         }
-
+        if($this->parent_id > 0) {
+          $user = User::find($this->parent_id);
+          return $user->subscribed();
+        }
         return $this->subscribed();
     }
 
     public function hasAvailableSenders()
     {
-        if (! $subscription = $this->subscription()) {
+      if (! $subscription = $this->getSubscription()) {
             return false;
         }
 
         return $this->senders->count() < $subscription->quantity;
+    }
+    
+    public function getSubscription() {
+      if($this->parent_id > 0) {
+        $user = User::find($this->parent_id);
+        return $user->subscription();
+      }
+      return $this->subscription();
+    }
+    
+    public function getAppSumoActivationId() {
+      if($this->parent_id > 0) {
+        $user = User::find($this->parent_id);
+        return $user->app_sumo_activation_id;
+      }
+      return $this->app_sumo_activation_id;
     }
 }

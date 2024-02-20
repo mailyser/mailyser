@@ -74,6 +74,23 @@
              $color = '#7FFF00'; //green
              
          } 
+         
+         if($mailtestScore <= 2.5) {
+           $spamScoreVal = 'Do not send';
+           $color = '#FF0000'; //red
+         }else if($mailtestScore > 2.5 && $mailtestScore <= 5 ) {
+           $spamScoreVal = 'Send with Caution';
+           $color = '#ffc800'; //orange
+         }else if($mailtestScore > 5 && $mailtestScore < 7.5 ) {
+           $spamScoreVal = 'Good';
+           $color = '#0000FF'; //blue
+           
+         }else if($mailtestScore   >= 7.5 ) {
+          
+           $spamScoreVal = 'Excellent';
+           $color = '#7FFF00'; //green
+         }
+         
      ?>
      
 <!--      <div> -->

@@ -67,7 +67,7 @@
         }"
     >
         <div>
-            @if (config('filament.dark_mode'))
+            @if (false && config('filament.dark_mode'))
                 <x-filament::dropdown.list.item icon="heroicon-s-moon" x-show="theme === 'dark'" x-on:click="close(); mode = 'manual'; theme = 'light'">
                     {{ __('filament::layout.buttons.light_mode.label') }}
                 </x-filament::dropdown.list.item>

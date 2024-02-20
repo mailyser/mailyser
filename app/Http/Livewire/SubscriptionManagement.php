@@ -24,7 +24,15 @@ class SubscriptionManagement extends Component implements HasForms
 
         $this->user = $user;
 
-        $this->quantity = $user->subscription()->quantity;
+        $this->quantity = $this->getSubscription()->quantity;
+    }
+    
+    public function getSubscription() {
+      if($this->user->parent_id > 0) {
+        $user = User::find($this->user->parent_id);
+        return $user->subscription();
+      }
+      return $this->user->subscription();
     }
 
     protected function getFormSchema(): array
@@ -62,7 +70,7 @@ class SubscriptionManagement extends Component implements HasForms
 
     public function updateQuantity()
     {
-        $this->user->subscription()->updateQuantity($this->quantity);
+        $this->getSubscription()->updateQuantity($this->quantity);
 
         Notification::make()
             ->title('Sender quantity updated')

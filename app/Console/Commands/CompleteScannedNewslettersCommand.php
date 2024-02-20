@@ -36,7 +36,7 @@ class CompleteScannedNewslettersCommand extends Command
             ->whereNotNull('scanning_at')
             ->whereNull('completed_at')
             ->get()
-            ->filter(fn (Newsletter $newsletter) => $newsletter->user->subscribed())
+            ->filter(fn (Newsletter $newsletter) => $newsletter->user->hasAccess())
             ->each(fn (Newsletter $newsletter) => app(CompleteNewsletterAction::class)($newsletter));
 
         return Command::SUCCESS;

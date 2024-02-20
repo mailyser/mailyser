@@ -58,9 +58,15 @@ class ViewNewsletter extends ViewRecord
         $this->authorize('manage', $this->record);
 
         $csv = Writer::createFromFileObject(new SplTempFileObject);
-        $csv->insertOne(Newsletter::audienceFields());
+        $csv->insertOne( [
+            'first_name',
+            'last_name',
+            'email',
+            'reference'
+        ]);
+        
         if($this->record->has_mail_tester) {
-            $csv->insertOne(['mail','receiver',$this->record->getMailTestUniqueEmail() ]);
+            $csv->insertOne(['mail','receiver',$this->record->getMailTestUniqueEmail(),1 ]);
         }
         
         $csv->insertAll($this->record->getOrGenerateAudience());

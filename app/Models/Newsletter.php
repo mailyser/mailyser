@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Spatie\ModelStatus\HasStatuses;
+use Illuminate\Support\Facades\Storage;
 
 class Newsletter extends Model
 {
@@ -162,6 +163,12 @@ class Newsletter extends Model
     public function getMailtesterData() {
         $uniqueId =  $this->getMailTesterIdentifier();
         
+        if(Storage::disk('local')->exists($this->getMailTesterIdentifier().'.json')) {
+          $mailTestJson = json_decode(Storage::disk('local')->get($this->getMailTesterIdentifier().'.json'));
+          
+          return $mailTestJson;
+        }
+        
         $url = "https://www.mail-tester.com/".$uniqueId."&format=json";
         
         //  Initiate curl
@@ -178,6 +185,10 @@ class Newsletter extends Model
         // Will dump a beauty json :3
         $mailTestJson = (json_decode($result, true));
          
+        if($mailTestJson && isset($mailTestJson['status']) && $mailTestJson['status']) {
+          Storage::disk('local')->put($this->getMailTesterIdentifier().'.json', json_encode($mailTestJson));
+        }
+        
         return $mailTestJson;
       
     }
