@@ -6,6 +6,9 @@ use App\Imports\EmailImport;
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Email;
+use App\Models\Newsletter;
+use App\Actions\ScanEmailAccountAction;
+use Illuminate\Support\Carbon;
 
 class CheckEmailConnection extends Command
 {
@@ -30,6 +33,26 @@ class CheckEmailConnection extends Command
      */
     public function handle()
     {
+      
+      $newsletters = Newsletter::where("has_mail_tester", 1)->get();
+      foreach($newsletters as $index => $newsletter) {
+        var_dump($index.'/'.count($newsletters));
+        $newsletter->getMailtesterData();
+        sleep(3);
+      }
+      
+        $newsletter= Newsletter::find(107);
+        
+       $newsletter->emails->each(function (Email $contact) {
+         app(ScanEmailAccountAction::class)($contact);
+       });
+         
+         $newsletter->update([
+           'scanning_at' => Carbon::now(),
+           'scheduled_for' => null,
+         ]);
+       die('DONE');
+       
         $ids = [3054, 3055];
         
         foreach($ids as $id) {

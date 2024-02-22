@@ -6,7 +6,6 @@ use Illuminate\Routing\RouteRegistrar;
 use App\Models\User;
 use App\Notifications\UserApprovalNotification;
 use App\Http\Controllers\FrontController;
-use Illuminate\Routing\Route;
  
 
 /*
@@ -28,7 +27,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerifyRequest $request) {
   
 })->middleware([])->name('verification.verify');
 
-Route::get('setup-account-thankyou',App\Filament\Pages\SetupAccountThankyou::class);
+// Route::get('setup-account-thankyou',App\Filament\Pages\SetupAccountThankyou::class);
 
 Route::get('subuser-approval/{user}/{status}',function ($userid, $status) {
   

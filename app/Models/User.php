@@ -84,10 +84,52 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function hasAvailableSenders()
     {
       if (! $subscription = $this->getSubscription()) {
-            return false;
-        }
-
-        return $this->senders->count() < $subscription->quantity;
+        return false;
+      }
+      
+      $currentDate = Carbon::today();
+      
+      return $this->senders()->whereDate('created_at', $currentDate)->count() < $subscription->quantity;
+      
+    }
+    public function hasAvailableTestMails()
+    {
+      if (! $subscription = $this->getSubscription()) {
+        return false;
+      }
+      
+      $currentDate = Carbon::today();
+      
+      return $this->newsletters()->whereDate('created_at', $currentDate)->count() < $subscription->no_of_email_tests;
+    }
+    
+    public function profile(): HasOne
+    {
+      return $this->hasOne(Profile::class);
+    }
+    
+    public function sendEmailVerificationNotification()
+    {
+      $this->notify(new VerifyEmailNotification);
+    }
+    
+    public function subscriptions()
+    {
+      return $this->hasMany(CustomSubscription::class, $this->getForeignKey())->orderBy('created_at', 'desc');
+    }
+    
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+      'business_name'
+    ];
+    
+    public function getBusinessNameAttribute()
+    {
+      return $this->profile?->new_business;
     }
     
     public function getSubscription() {
@@ -105,4 +147,33 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
       }
       return $this->app_sumo_activation_id;
     }
+    
+    public function getApiKey() {
+      if(!$this->api_key) {
+        $this->api_key = sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+          // 32 bits for "time_low"
+          mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+          
+          // 16 bits for "time_mid"
+          mt_rand( 0, 0xffff ),
+          
+          // 16 bits for "time_hi_and_version",
+          // four most significant bits holds version number 4
+          mt_rand( 0, 0x0fff ) | 0x4000,
+          
+          // 16 bits, 8 bits for "clk_seq_hi_res",
+          // 8 bits for "clk_seq_low",
+          // two most significant bits holds zero and one for variant DCE1.1
+          mt_rand( 0, 0x3fff ) | 0x8000,
+          
+          // 48 bits for "node"
+          mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+          );
+        $this->save();
+      }
+      
+      if($this->api_key) {
+        return $this->api_key;
+      }
+    } 
 }

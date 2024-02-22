@@ -55,6 +55,23 @@
         </form>
 
     </x-filament-breezy::grid-section>
+    
+    <x-filament-breezy::grid-section>
+
+        <x-slot name="title">
+            API Key
+        </x-slot>
+
+        <x-slot name="description">
+            Access to API Resources
+        </x-slot>
+ 
+
+        <x-filament::card>
+            {{ $this->user->api_key }}
+        </x-filament::card>
+
+    </x-filament-breezy::grid-section>
 
     @if(config('filament-breezy.enable_2fa'))
     <x-filament::hr />
